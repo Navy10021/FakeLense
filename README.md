@@ -51,13 +51,13 @@ Start by cloning the repository to your local machine:
    ```
 
 ### STEP 2. Prepare the Dataset
-To prepare the dataset, you need to run the ***preprocessing.py*** script. This script will automatically preprocess the text, label it, and split it into a training and testing dataset with an 8:2 ratio. The processed data will then be saved as ***train.csv*** and ***test.csv*** in the ./data/ folder.
+To prepare the dataset, you need to run the ***preprocessing.py*** script. This script will automatically preprocess the text, label it, and split it into a training and testing dataset with an 8:2 ratio.
 
 Run the following command:
  ```bash
    python preprocessing.py
    ```
-After running this script, you should have two files:
+After running this script, you should have two files in the ./data/ folder:
   - train.csv: Training data
   - test.csv: Testing data
 
