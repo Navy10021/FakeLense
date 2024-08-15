@@ -19,10 +19,10 @@ In response to the significant security threats posed by false and manipulated i
 
 
 ### Key Features:
-  - **Hybrid Model Approach:** FakeLense combines BERT-based and GPT-based models to enhance detection accuracy.
+  - **Hybrid Model Approach:** **FakeLense** combines BERT-based and GPT-based models to enhance detection accuracy.
   - **Focus on False Information:** The project targets the detection and prevention of false information—content that is both factually incorrect and maliciously intended.
-  - **Real-time Detection:** FakeLense can be integrated into content platforms to monitor and flag potential fake news in real-time, preventing its dissemination.
-  - **Mitigating Social Harm:** By effectively blocking fake news, FakeLense aims to reduce unnecessary social conflicts, prevent the polarization of public opinion, and save national resources from being wasted on dealing with the consequences of misinformation.
+  - **Real-time Detection:** **FakeLense** can be integrated into content platforms to monitor and flag potential fake news in real-time, preventing its dissemination.
+  - **Mitigating Social Harm:** By effectively blocking fake news, **FakeLense** aims to reduce unnecessary social conflicts, prevent the polarization of public opinion, and save national resources from being wasted on dealing with the consequences of misinformation.
 
 ### What is Fake News:
 
