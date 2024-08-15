@@ -99,19 +99,19 @@ News 4: Fake News Detected.
 
 ## 🏋️‍♂️ Training Phase
 ### BERTLense: Train BERT-Based Model
-BERT-based models can be fine-tuned using the train_bert function on pre-trained BERT-based LLMs. Here, you can build **BERTLense** by applying various BERT-based models. The default for LLMs is 'roberta-base'.
+BERT-based models can be fine-tuned using the ***train_bert*** function on pre-trained BERT-based LLMs. Here, you can build **BERTLense** by applying various BERT-based models. The default for LLMs is 'roberta-base'.
  ```python
    bert_trainer, bert_lense, bert_tokenizer = train_bert('microsoft/deberta-base', train_texts, train_labels, test_texts, test_labels)
    ```
 ### GPTLense: Train GPT-Based Model
-GPT-based models can be fine-tuned using the train_gpt function on pre-trained GPT-based LLMs. This function allows you to build **GPTLense** by applying various GPT-based models. The default for LLMs is 'gpt2'.
+GPT-based models can be fine-tuned using the ***train_gpt*** function on pre-trained GPT-based LLMs. This function allows you to build **GPTLense** by applying various GPT-based models. The default for LLMs is 'gpt2'.
  ```python
    gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt('EleutherAI/gpt-neo-125M', train_texts, test_texts)
    ```
 Both models will be saved in the ./model/ directory.
 
 ## 🕵️‍♂️ Detection Phase
-The **'FakeLense'** function combines the outputs of the BERT and GPT models to determine whether the news is real or fake.
+The main feature of this code is its implementation, which focuses on enhancing the accuracy of fake news detection by combining the strengths of BERT and GPT. BERT excels at text classification, while GPT provides an additional verification step through its text generation capabilities. Specifically, the ***FakeLense function*** synthesizes the results of both models: it identifies fake news if BERT classifies the text as such or if the similarity between the generated text by GPT and the original text is low. This process is used as a strategy to improve the accuracy of fake news detection.
  ```python
    def FakeLense(text, bert_model, bert_tokenizer, gpt_model, gpt_tokenizer, similarity_threshold=0.8):
     ...
