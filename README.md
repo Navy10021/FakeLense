@@ -72,8 +72,8 @@ To train both the BERT and GPT models, run the ***train.py*** script:
    python train.py
    ```
 This script will:
-  - Fine-tune the BERT model and save it in ./model/bert_lense.
-  - Fine-tune the GPT model and save it in ./model/gpt_lense.
+  - Fine-tune the BERT-based model and save it in ./model/bert_lense.
+  - Fine-tune the GPT-based model and save it in ./model/gpt_lense.
 
 ### STEP 4. Detection
 After training, you can perform fake news detection by running the ***detect.py*** script:
