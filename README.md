@@ -13,7 +13,7 @@ In response to the significant security threats posed by false and manipulated i
 
 ## 📑 Project Overview
 
-**FakeLense** is an AI-driven tool specifically designed to automatically detect and prevent the spread of fake news. By leveraging a hybrid detection system that combines the strengths of **BERT**(Bidirectional Encoder Representations from Transformers) and **GPT** (Generative Pre-trained Transformer) **Large Language Models** (LLMs), FakeLense aims to achieve high accuracy in identifying and neutralizing fake news.
+**FakeLense** is an AI-driven tool specifically designed to automatically detect and prevent the spread of fake news. By leveraging a hybrid detection system that combines the strengths of **BERT**(Bidirectional Encoder Representations from Transformers) and **GPT** (Generative Pre-trained Transformer) **Large Language Models**, FakeLense aims to achieve high accuracy in identifying and neutralizing fake news.
 
 ![overall_pipeline](https://github.com/user-attachments/assets/397d61d1-7033-405b-b986-dbf1c2b701b7)
 
