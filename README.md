@@ -3,6 +3,8 @@
 # 📰🔍 FakeLense: A Hybrid BERT-GPT Approach for Robust Fake Content Detection
 
 </div>
+
+
 ## 🎓 Introduction
 
 Fake news refers to intentionally fabricated information spread to mislead, manipulate, or gain attention for political, economic, or other malicious purposes. The rapid proliferation of fake news, fueled by advancements in social media (SNS) and artificial intelligence (AI), has led to increasingly severe negative impacts on society. With the development of generative AI technologies, the risk of widespread distribution of fake news that is difficult to distinguish from genuine information has amplified. Moreover, fake news creators are becoming more sophisticated, concealing their identities and engaging in activities exacerbate social division and polarization.
