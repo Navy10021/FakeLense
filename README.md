@@ -99,12 +99,12 @@ News 4: Fake News Detected.
 
 ## 🏋️‍♂️ Training Phase
 ### BERTLense: Train BERT-Based Model
-The BERT-based model can be fine-tuned using the train_bert function:
+BERT-based models can be fine-tuned using the train_bert function on pre-trained BERT-based LLMs. Here, you can build **BERTLense** by applying various BERT-based models. The default for LLMs is 'roberta-base'.
  ```python
    bert_trainer, bert_lense, bert_tokenizer = train_bert('microsoft/deberta-base', train_texts, train_labels, test_texts, test_labels)
    ```
 ### GPTLense: Train GPT-Based Model
-Fine-tune the GPT-based model using the train_gpt function:
+GPT-based models can be fine-tuned using the train_gpt function on pre-trained GPT-based LLMs. This function allows you to build **GPTLense** by applying various GPT-based models. The default for LLMs is 'gpt2'.
  ```python
    gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt('EleutherAI/gpt-neo-125M', train_texts, test_texts)
    ```
