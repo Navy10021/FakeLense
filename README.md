@@ -18,13 +18,13 @@ In response to the significant security threats posed by false and manipulated i
 ![overall_pipeline](https://github.com/user-attachments/assets/397d61d1-7033-405b-b986-dbf1c2b701b7)
 
 
-### Key Features:
+### Key Features
   - **Hybrid Model Approach:** **FakeLense** combines BERT-based and GPT-based models to enhance detection accuracy.
   - **Focus on False Information:** The project targets the detection and prevention of false information—content that is both factually incorrect and maliciously intended.
   - **Real-time Detection:** **FakeLense** can be integrated into content platforms to monitor and flag potential fake news in real-time, preventing its dissemination.
   - **Mitigating Social Harm:** By effectively blocking fake news, **FakeLense** aims to reduce unnecessary social conflicts, prevent the polarization of public opinion, and save national resources from being wasted on dealing with the consequences of misinformation.
 
-### What is Fake News:
+### What is Fake News?
 
 Fake news can be categorized into three main types:
 
@@ -42,14 +42,14 @@ Before you begin, ensure that you have Python 3.7 or higher installed. Install t
    ```
 These dependencies include essential libraries for machine learning, natural language processing, and data handling.
 
-### 1. Clone the Repository
+### STEP 1. Clone the Repository
 Start by cloning the repository to your local machine:
  ```bash
    git clone https://github.com/Navy10021/FakeLense.git
    cd FakeLense
    ```
 
-### 2. Prepare the Dataset
+### STEP 2. Prepare the Dataset
 To prepare the dataset, you need to run the preprocessing.py script. This script will automatically preprocess the text, label it, and split it into a training and testing dataset with an 8:2 ratio. The processed data will then be saved as train.csv and test.csv in the data/ folder.
 
 Run the following command:
@@ -63,7 +63,7 @@ Each CSV file will have the following columns:
   - text: The text of the news article.
   - target: The label (0 for real, 1 for fake).
 
-### 3. Training
+### STEP 3. Training
 To train both the BERT and GPT models, run the train.py script:
  ```bash
    python train.py
@@ -72,14 +72,23 @@ This script will:
   - Fine-tune the BERT model and save it in ./model/bert_lense.
   - Fine-tune the GPT model and save it in ./model/gpt_lense.
 
-### 4. Detection
+### STEP 4. Detection
 After training, you can perform fake news detection by running the detect.py script:
  ```bash
    python detection.py
    ```
 You can modify the test_cases list in the script with your own examples for testing.
 
-### Example Output
+### STEP 5. Sample Test Cases
+The **detecttion.py** script includes several test cases. You can customize them with your examples:
+ ```python
+   test_cases = [
+    "Global Leaders Gather for Climate Summit...",
+    "Breaking News: The moon is made of cheese...",
+    ...
+]
+   ```
+An example output is as follows:
  ```yaml
 News 1: Real News Detected.
 News 2: Real News Detected.
@@ -87,7 +96,7 @@ News 3: Fake News Detected.
 News 4: Fake News Detected.
  ```
 
-## 🏋️‍♂️ Training
+## 🏋️‍♂️ Training Phase
 ### BERTLense: Train BERT-Based Model
 The BERT-based model can be fine-tuned using the train_bert function:
  ```python
@@ -100,21 +109,11 @@ Fine-tune the GPT-based model using the train_gpt function:
    ```
 Both models will be saved in the ./model/ directory.
 
-## 🕵️‍♂️ Detection
+## 🕵️‍♂️ Detection Phase
 The **'FakeLense'** function combines the outputs of the BERT and GPT models to determine whether the news is real or fake:
  ```python
    def FakeLense(text, bert_model, bert_tokenizer, gpt_model, gpt_tokenizer, similarity_threshold=0.8):
     ...
-   ```
-
-## 🧪 Sample Test Cases
-The **detecttion.py** script includes several test cases. You can customize them with your examples:
- ```python
-   test_cases = [
-    "Global Leaders Gather for Climate Summit...",
-    "Breaking News: The moon is made of cheese...",
-    ...
-]
    ```
 
 ## 👨‍💻 Contributors
