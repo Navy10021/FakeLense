@@ -1,14 +1,15 @@
-# 📰 FakeLense: A Powerful Fake Detection Model that Combines BERT and GPT
-
-## Introduction
+<div align="center">
+# 📰 FakeLense: A Hybrid BERT-GPT Approach for Robust Fake Content Detection
+</div>
+## 🎓 Introduction
 
 Fake news refers to intentionally fabricated information spread to mislead, manipulate, or gain attention for political, economic, or other malicious purposes. The rapid proliferation of fake news, fueled by advancements in social media (SNS) and artificial intelligence (AI), has led to increasingly severe negative impacts on society. With the development of generative AI technologies, the risk of widespread distribution of fake news that is difficult to distinguish from genuine information has amplified. Moreover, fake news creators are becoming more sophisticated, concealing their identities and engaging in activities exacerbate social division and polarization.
 
 In response to the significant security threats posed by false and manipulated information, governments worldwide are establishing new organizations dedicated to combating these issues. This project, **FakeLense**, aims to contribute to these efforts by developing an advanced tool for detecting fake news using cutting-edge natural language processing (NLP) technology.
 
-## 🌟 Overview
+## 📑 Project Overview
 
-**FakeLense** is an AI tool specifically designed to automatically detect and block the spread of fake news. By leveraging a hybrid detection system that combines the strengths of BERT and GPT models, FakeLense aims to achieve high accuracy in identifying and neutralizing fake news.
+**FakeLense** is an AI tool specifically designed to automatically detect and block the spread of fake news. By leveraging a hybrid detection system that combines the strengths of **BERT(Bidirectional Encoder Representations from Transformers)** and **GPT(Generative Pre-trained Transformer) LLMs**, FakeLense aims to achieve high accuracy in identifying and neutralizing fake news.
 
 ![overall_pipeline](https://github.com/user-attachments/assets/397d61d1-7033-405b-b986-dbf1c2b701b7)
 
@@ -28,8 +29,6 @@ Fake news can be categorized into three main types:
   3. **Distorted Information:** Information that is factually incorrect but not maliciously intended (false O, malicious X).
 
 *FakeLense** focuses on detecting and blocking **false information**—the most harmful type of fake news that misleads the public with incorrect data and malicious motives.
-
-## 📑 Table of Contents
 
 
 ## 🛠️ Usage
@@ -84,7 +83,7 @@ News 3 : Fake News Detected.
 News 4 : Fake News Detected.
  ```
 
-## 🎓 Training
+## 🏋️‍♂️ Training
 ### Train BERT-Based Model
 The BERT-based model can be fine-tuned using the train_bert function:
  ```python
