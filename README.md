@@ -24,7 +24,7 @@ In response to the significant security threats posed by false and manipulated i
   - **Real-time Detection:** FakeLense can be integrated into content platforms to monitor and flag potential fake news in real-time, preventing its dissemination.
   - **Mitigating Social Harm:** By effectively blocking fake news, FakeLense aims to reduce unnecessary social conflicts, prevent the polarization of public opinion, and save national resources from being wasted on dealing with the consequences of misinformation.
 
-### Classification of Fake News:
+### What is Fake News:
 
 Fake news can be categorized into three main types:
 
@@ -50,7 +50,7 @@ Start by cloning the repository to your local machine:
    ```
 
 ### 2. Prepare the Dataset
-To prepare the dataset, you need to run the preprocessing.py script. This script will automatically preprocess the text, label it, and split it into a training and testing dataset with an 80:20 ratio. The processed data will then be saved as train.csv and test.csv in the data/ folder.
+To prepare the dataset, you need to run the preprocessing.py script. This script will automatically preprocess the text, label it, and split it into a training and testing dataset with an 8:2 ratio. The processed data will then be saved as train.csv and test.csv in the data/ folder.
 
 Run the following command:
  ```bash
@@ -81,20 +81,20 @@ You can modify the test_cases list in the script with your own examples for test
 
 ### Example Output
  ```yaml
-News 1 : Real News Detected.
-News 2 : Real News Detected.
-News 3 : Fake News Detected.
-News 4 : Fake News Detected.
+News 1: Real News Detected.
+News 2: Real News Detected.
+News 3: Fake News Detected.
+News 4: Fake News Detected.
  ```
 
 ## 🏋️‍♂️ Training
-### Train BERT-Based Model
+### BERTLense: Train BERT-Based Model
 The BERT-based model can be fine-tuned using the train_bert function:
  ```python
    bert_trainer, bert_lense, bert_tokenizer = train_bert('microsoft/deberta-base', train_texts, train_labels, test_texts, test_labels)
    ```
-### Train GPT-Based Model
-Fine-tune the GPT model using the train_gpt function:
+### GPTLense: Train GPT-Based Model
+Fine-tune the GPT-based model using the train_gpt function:
  ```python
    gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt('EleutherAI/gpt-neo-125M', train_texts, test_texts)
    ```
