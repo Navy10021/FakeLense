@@ -1,6 +1,6 @@
 <div align="center">
   
-# 📰 FakeLense : A Hybrid BERT-GPT Approach for Robust Fake Content Detection
+# 📰🔍 FakeLense: A Hybrid BERT-GPT Approach for Robust Fake Content Detection
 
 </div>
 ## 🎓 Introduction
