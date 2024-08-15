@@ -50,7 +50,7 @@ Start by cloning the repository to your local machine:
    ```
 
 ### STEP 2. Prepare the Dataset
-To prepare the dataset, you need to run the preprocessing.py script. This script will automatically preprocess the text, label it, and split it into a training and testing dataset with an 8:2 ratio. The processed data will then be saved as train.csv and test.csv in the data/ folder.
+To prepare the dataset, you need to run the ***preprocessing.py*** script. This script will automatically preprocess the text, label it, and split it into a training and testing dataset with an 8:2 ratio. The processed data will then be saved as train.csv and test.csv in the data/ folder.
 
 Run the following command:
  ```bash
@@ -64,7 +64,7 @@ Each CSV file will have the following columns:
   - target: The label (0 for real, 1 for fake).
 
 ### STEP 3. Training
-To train both the BERT and GPT models, run the train.py script:
+To train both the BERT and GPT models, run the ***train.py*** script:
  ```bash
    python train.py
    ```
@@ -73,14 +73,14 @@ This script will:
   - Fine-tune the GPT model and save it in ./model/gpt_lense.
 
 ### STEP 4. Detection
-After training, you can perform fake news detection by running the detect.py script:
+After training, you can perform fake news detection by running the ***detect.py*** script:
  ```bash
-   python detection.py
+   python detect.py
    ```
 You can modify the test_cases list in the script with your own examples for testing.
 
 ### STEP 5. Sample Test Cases
-The **detecttion.py** script includes several test cases. You can customize them with your examples:
+The ***detect.py*** script includes several test cases. You can customize them with your examples:
  ```python
    test_cases = [
     "Global Leaders Gather for Climate Summit...",
