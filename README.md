@@ -60,8 +60,10 @@ Run the following command:
 After running this script, you should have two files:
   - train.csv: Training data
   - test.csv: Testing data
+
 Each CSV file will have the following columns:
   - text: The text of the news article.
+  - title : The title of the news article
   - target: The label (0 for real, 1 for fake).
 
 ### STEP 3. Training
