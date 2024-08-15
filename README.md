@@ -6,7 +6,7 @@ Fake news refers to intentionally fabricated information spread to mislead, mani
 
 In response to the significant security threats posed by false and manipulated information, governments worldwide are establishing new organizations dedicated to combating these issues. This project, **FakeLense**, aims to contribute to these efforts by developing an advanced tool for detecting fake news using cutting-edge natural language processing (NLP) technology.
 
-## Overview
+## 🌟 Overview
 
 **FakeLense** is an AI tool specifically designed to automatically detect and block the spread of fake news. By leveraging a hybrid detection system that combines the strengths of BERT and GPT models, FakeLense aims to achieve high accuracy in identifying and neutralizing fake news.
 
