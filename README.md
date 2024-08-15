@@ -51,7 +51,7 @@ Start by cloning the repository to your local machine:
    ```
 
 ### STEP 2. Prepare the Dataset
-To prepare the dataset, you need to run the ***preprocessing.py*** script. This script will automatically preprocess the text, label it, and split it into a training and testing dataset with an 8:2 ratio. The processed data will then be saved as train.csv and test.csv in the data/ folder.
+To prepare the dataset, you need to run the ***preprocessing.py*** script. This script will automatically preprocess the text, label it, and split it into a training and testing dataset with an 8:2 ratio. The processed data will then be saved as ***train.csv*** and ***test.csv*** in the ./data/ folder.
 
 Run the following command:
  ```bash
@@ -108,7 +108,7 @@ GPT-based models can be fine-tuned using the ***train_gpt*** function on pre-tra
  ```python
    gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt('EleutherAI/gpt-neo-125M', train_texts, test_texts)
    ```
-Both models will be saved in the ./model/ directory.
+Both trained models will be saved in the ./model/ directory.
 
 ## 🕵️‍♂️ Detection Phase
 The main feature of this code is its implementation, which focuses on enhancing the accuracy of fake news detection by combining the strengths of BERT and GPT. BERT excels at text classification, while GPT provides an additional verification step through its text generation capabilities. Specifically, the ***FakeLense function*** synthesizes the results of both models: it identifies fake news if BERT classifies the text as such or if the similarity between the generated text by GPT and the original text is low. This process is used as a strategy to improve the accuracy of fake news detection.
