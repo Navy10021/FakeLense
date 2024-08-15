@@ -100,7 +100,7 @@ Fine-tune the GPT model using the train_gpt function:
    ```
 Both models will be saved in the ./model/ directory.
 
-## 🔍 Detection
+## 🕵️‍♂️ Detection
 The **'FakeLense'** function combines the outputs of the BERT and GPT models to determine whether the news is real or fake:
  ```python
    def FakeLense(text, bert_model, bert_tokenizer, gpt_model, gpt_tokenizer, similarity_threshold=0.8):
