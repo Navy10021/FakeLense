@@ -1,3 +1,5 @@
+![header](https://capsule-render.vercel.app/api?type=transparent&color=auto&height=300&section=header&text=FakeLense&fontColor=f7e600&fontSize=100)
+
 <div align="center">
   
 # 📰🔍 FakeLense: A Hybrid BERT-GPT Approach for Robust Fake Content Detection
