@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=waving&color=191970&height=300&section=header&text=FakeLense&fontColor=ffffff&fontSize=90&animation=fadeIn)
+![header](https://capsule-render.vercel.app/api?type=waving&color=4682B4&height=300&section=header&text=FakeLense&fontColor=ffffff&fontSize=90&animation=fadeIn)
 
 
 <div align="center">
@@ -16,7 +16,7 @@ In response to the significant security threats posed by false and manipulated i
 
 ## 📑 Project Overview
 
-**FakeLense** is an AI-driven tool specifically designed to automatically detect and prevent the spread of fake news. By leveraging a hybrid detection system that combines the strengths of **BERT**(Bidirectional Encoder Representations from Transformers) and **GPT** (Generative Pre-trained Transformer) **Large Language Models**, FakeLense aims to achieve high accuracy in identifying and neutralizing fake news.
+**FakeLense** is an AI-driven tool specifically designed to detect and prevent the spread of fake news automatically. By leveraging a hybrid detection system that combines the strengths of **BERT**(Bidirectional Encoder Representations from Transformers) and **GPT** (Generative Pre-trained Transformer) **Large Language Models**, FakeLense aims to achieve high accuracy in identifying and neutralizing fake news.
 
 ![overall_pipeline](https://github.com/user-attachments/assets/2181f105-a6fe-49cb-8c90-97597a24e146)
 
@@ -24,8 +24,8 @@ In response to the significant security threats posed by false and manipulated i
 
 ### Key Features
   - **Hybrid Model Approach:** **FakeLense** combines BERT-based and GPT-based models to enhance detection accuracy.
-  - **Focus on False Information:** The project targets the detection and prevention of false information—content that is both factually incorrect and maliciously intended.
-  - **Real-time Detection:** **FakeLense** can be integrated into content platforms to monitor and flag potential fake news in real-time, preventing its dissemination.
+  - **Focus on False Information:** The project targets the detection and prevention of false information—factually incorrect and maliciously intended content.
+  - **Real-time Detection:** **FakeLense** can be integrated into content platforms to monitor and flag potential fake news in real-time, preventing dissemination.
   - **Mitigating Social Harm:** By effectively blocking fake news, **FakeLense** aims to reduce unnecessary social conflicts, prevent the polarization of public opinion, and save national resources from being wasted on dealing with the consequences of misinformation.
 
 ### What is Fake News?
