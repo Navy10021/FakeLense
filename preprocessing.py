@@ -47,6 +47,8 @@ def split_and_save(df):
     print("Train dataset size : ", len(train_df))
     print("Test dataset size : ", len(test_df))
 
+
+
 if __name__ == "__main__":
     df = load_data()
     print("News dataset size : ", len(df), end= "\n")
