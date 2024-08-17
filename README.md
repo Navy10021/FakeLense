@@ -2,7 +2,7 @@
 
 <div align="center">
   
-# 📰🔍 FakeLense: Leveraging BERT-GPT Synergy for Robust Detection of Disinformation
+# 📰🔍 FakeLense: Leveraging a Hybrid BERT-GPT Model for Robust Detection of Disinformation
 
 </div>
 
