@@ -96,9 +96,9 @@ The ***detect.py*** script includes several test cases. You can customize them w
 An example output is as follows:
  ```yaml
 News 1: Real News Detected.
-News 2: Real News Detected.
+News 2: Fake News Detected.
 News 3: Fake News Detected.
-News 4: Fake News Detected.
+News 4: Real News Detected.
  ```
 
 ## 🏋️‍♂️ Training Phase
