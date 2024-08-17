@@ -31,11 +31,11 @@ In response to the significant security threats posed by false and manipulated i
 
 Fake news can be categorized into three main types:
 
-  1. **False Information:** Information that is factually incorrect and maliciously intended (false O, malicious O).
+  1. **DisInformation:** Information that is factually incorrect and maliciously intended (false O, malicious O).
   2. **Exaggerated Information:** Information that is factually correct but exaggerated with malicious intent (false X, malicious O).
-  3. **Distorted Information:** Information that is factually incorrect but not maliciously intended (false O, malicious X).
+  3. **MisInformation:** Information that is factually incorrect but not maliciously intended (false O, malicious X).
 
-**FakeLense** focuses on detecting and blocking **false information**—the most harmful type of fake news that misleads the public with incorrect data and malicious motives.
+**FakeLense** focuses on detecting and blocking **Disinformation**—the most harmful type of fake news that misleads the public with incorrect data and malicious motives.
 
 
 ## 🛠️ Usage
