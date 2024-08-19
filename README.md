@@ -54,7 +54,7 @@ Start by cloning the repository to your local machine:
    ```
 
 ### STEP 1. Prepare the Dataset
-In this project, 63,678 real and fake news texts were crawled to train the **FakeLense** model. To prepare the dataset, you need to run the ***preprocessing.py*** script. This script will automatically preprocess the text, label it, and split it into a training and testing dataset with an 8:2 ratio.
+In this project, 63,678 real and fake news texts were crawled to train the **FakeLense** model. To prepare the dataset, run the ***'preprocessing.py'*** script. This script will automatically preprocess the text, label it, and split it into training and testing datasets with an 8:2 ratio.
 
 Run the following command:
  ```bash
@@ -70,7 +70,7 @@ Each CSV file will have the following columns:
   - target: The label (0 for real, 1 for fake).
 
 ### STEP 2. Training
-To train both the BERT and GPT models, run the ***train.py*** script:
+To train both the BERT and GPT models, run the ***'train.py'*** script:
  ```bash
    python train.py
    ```
@@ -79,7 +79,7 @@ This script will:
   - Fine-tune the GPT-based model and save it in ./model/gpt_lense.
 
 ### STEP 3. Detection
-After training, you can perform fake news detection by running the ***detect.py*** script:
+After training, you can perform fake news detection by running the ***'detect.py'*** script:
  ```bash
    python detect.py
    ```
@@ -101,12 +101,12 @@ News 4: Real News Detected.
 
 ## 🏋️‍♂️ Training Phase
 ### BERTLense: Train BERT-Based Model
-BERT-based models can be fine-tuned using the ***train_bert*** function on pre-trained BERT-based LLMs. Here, you can build **BERTLense** by applying various BERT-based models. The default for LLMs is 'roberta-base'.
+BERT-based models can be fine-tuned using the ***'train_bert'*** function on pre-trained BERT-based LLMs. Here, you can build **BERTLense** by applying various BERT-based models. The default for LLMs is 'roberta-base'.
  ```python
    bert_trainer, bert_lense, bert_tokenizer = train_bert('microsoft/deberta-base', train_texts, train_labels, test_texts, test_labels)
    ```
 ### GPTLense: Train GPT-Based Model
-GPT-based models can be fine-tuned using the ***train_gpt*** function on pre-trained GPT-based LLMs. This function allows you to build **GPTLense** by applying various GPT-based models. The default for LLMs is 'gpt2'.
+GPT-based models can be fine-tuned using the ***'train_gpt'*** function on pre-trained GPT-based LLMs. This function allows you to build **GPTLense** by applying various GPT-based models. The default for LLMs is 'gpt2'.
  ```python
    gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt('EleutherAI/gpt-neo-125M', train_texts, test_texts)
    ```
