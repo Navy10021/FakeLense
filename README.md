@@ -54,7 +54,7 @@ Start by cloning the repository to your local machine:
    ```
 
 ### STEP 1. Prepare the Dataset
-To prepare the dataset, you need to run the ***preprocessing.py*** script. This script will automatically preprocess the text, label it, and split it into a training and testing dataset with an 8:2 ratio.
+In this project, 63,678 real and fake news texts were crawled to train the **FakeLense** model. To prepare the dataset, you need to run the ***preprocessing.py*** script. This script will automatically preprocess the text, label it, and split it into a training and testing dataset with an 8:2 ratio.
 
 Run the following command:
  ```bash
