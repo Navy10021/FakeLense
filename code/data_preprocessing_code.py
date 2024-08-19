@@ -7,11 +7,26 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 def load_data():
-    true_df = pd.read_csv('./data/True.csv')[['title', 'text']]
-    fake_df = pd.read_csv('./data/Fake.csv')[['title', 'text']]
+    # Load true news data from both 2020 ~ 2024
+    true_df_2020 = pd.read_csv('./data/True_2020.csv')[['title', 'text']]
+    true_df_2022 = pd.read_csv('./data/True_2022.csv')[['title', 'text']]
+    true_df_2024 = pd.read_csv('./data/True_2024.csv')[['title', 'text']]
+    true_df = pd.concat([true_df_2020, true_df_2022, true_df_2024], axis=0).reset_index(drop=True)
+    # Load fake news data from both 2020 ~ 2024
+    fake_df_2020 = pd.read_csv('./data/Fake_2020.csv')[['title', 'text']]
+    fake_df_2022 = pd.read_csv('./data/Fake_2022.csv')[['title', 'text']]
+    fake_df_2024 = pd.read_csv('./data/Fake_2024.csv')[['title', 'text']]
+    fake_df = pd.concat([fake_df_2020, fake_df_2022, fake_df_2024], axis=0).reset_index(drop=True)
+    # Label the data
     true_df['target'] = 0
     fake_df['target'] = 1
-    df = pd.concat([true_df, fake_df], axis=0).reset_index(drop=True)
+    
+    # Load additional dataset
+    add_df = pd.read_csv('./data/WELFake.csv')[['title', 'text', 'label']]
+    add_df = add_df.rename(columns={'label': 'target'})
+    
+    # Combine all datasets and Remove duplicates
+    df = pd.concat([true_df, fake_df, add_df], axis=0).reset_index(drop=True)
     df = df.drop_duplicates(subset=['title', 'text'])
     return df
 
@@ -23,6 +38,10 @@ def plot_distribution(df):
     plt.show()
 
 def text_preprocessing(text):
+    # Check if the input is a string; if not, convert it to an empty string
+    if not isinstance(text, str):
+        text = ''
+        
     text = text.lower()
     text = re.sub(r'\[.*?\]', '', text)
     text = re.sub(r'https?://\S+|www\.\S+', '', text)
