@@ -20,11 +20,9 @@ def load_data():
     # Label the data
     true_df['target'] = 0
     fake_df['target'] = 1
-    
     # Load additional dataset
     add_df = pd.read_csv('./data/WELFake.csv')[['title', 'text', 'label']]
     add_df = add_df.rename(columns={'label': 'target'})
-    
     # Combine all datasets and Remove duplicates
     df = pd.concat([true_df, fake_df, add_df], axis=0).reset_index(drop=True)
     df = df.drop_duplicates(subset=['title', 'text'])
