@@ -86,8 +86,8 @@ After training, you can perform fake news detection by running the ***'detect.py
 You can modify the 'test_cases' list in the script with your own examples for testing.
  ```python
    test_cases = [
-    "Global Leaders Gather for Climate Summit...",
-    "Breaking News: The moon is made of cheese...",
+    "In the wake of the recent election, residents of Amherst gathered at the local common...",
+    "In a shocking twist, FBI Special Agent David Raynor, who was reportedly investigating a connection between Hillary Clinton...",
     ...
 ]
    ```
