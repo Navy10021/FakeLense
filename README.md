@@ -9,13 +9,13 @@
 
 ## 🎓 Introduction
 
-Fake news refers to intentionally fabricated information spread to mislead, manipulate, or gain attention for political, economic, or other malicious purposes. The rapid proliferation of fake news, fueled by advancements in social media (SNS) and artificial intelligence (AI), has led to increasingly severe negative impacts on society. With the development of generative AI technologies, the risk of widespread distribution of fake news that is difficult to distinguish from genuine information has amplified. Moreover, fake news creators are becoming more sophisticated, concealing their identities and engaging in activities exacerbate social division and polarization.
+Fake news refers to intentionally fabricated information spread to mislead, manipulate, or gain attention for political, economic, or other malicious purposes. The rapid proliferation of fake news, fueled by advancements in social media (SNS) and artificial intelligence (AI), has led to increasingly severe negative impacts on society. With the development of generative AI technologies, the risk of widespread distribution of fake news that is difficult to distinguish from genuine information has amplified. Moreover, fake news creators are becoming more sophisticated, concealing their identities and engaging in activities exacerbating social division and polarization.
 
 In response to the significant security threats posed by false and manipulated information, governments worldwide are establishing new organizations dedicated to combating these issues. This project, **FakeLense**, aims to contribute to these efforts by developing an advanced tool for detecting fake news using cutting-edge natural language processing (NLP) technology.
 
 ## 📑 Project Overview
 
-**FakeLense** is an NLP-powered tool specifically designed to automatically detect and prevent the spread of fake news and disinformation. By leveraging a hybrid detection system that combines the strengths of **BERT** (Bidirectional Encoder Representations from Transformers) and **GPT** (Generative Pre-trained Transformer) **Large Language Models**, FakeLense aims to achieve high accuracy in identifying and neutralizing disinformation.
+**FakeLense** is an NLP-powered tool specifically designed to automatically detect and prevent the spread of fake news and disinformation. By leveraging a hybrid detection system that combines the text comprehension capabilities of **BERT** (Bidirectional Encoder Representations from Transformers) and the generative abilities of **GPT** (Generative Pre-trained Transformer) **Large Language Models**, FakeLense aims to achieve a high accuracy in identifying and counteracting disinformation. To train these models effectively, a dataset of **63,678 real and fake news texts** was crawled and utilized, ensuring robust performance in distinguishing between genuine content and disinformation.
 
 
 ![overall_pipeline](https://github.com/user-attachments/assets/2181f105-a6fe-49cb-8c90-97597a24e146)
