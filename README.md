@@ -46,14 +46,14 @@ Before you begin, ensure that you have Python 3.7 or higher installed. Install t
    ```
 These dependencies include essential libraries for machine learning, natural language processing, and data handling.
 
-### STEP 1. Clone the Repository
+### STEP 0. Clone the Repository
 Start by cloning the repository to your local machine:
  ```bash
    git clone https://github.com/Navy10021/FakeLense.git
    cd FakeLense
    ```
 
-### STEP 2. Prepare the Dataset
+### STEP 1. Prepare the Dataset
 To prepare the dataset, you need to run the ***preprocessing.py*** script. This script will automatically preprocess the text, label it, and split it into a training and testing dataset with an 8:2 ratio.
 
 Run the following command:
@@ -69,7 +69,7 @@ Each CSV file will have the following columns:
   - title : The title of the news article
   - target: The label (0 for real, 1 for fake).
 
-### STEP 3. Training
+### STEP 2. Training
 To train both the BERT and GPT models, run the ***train.py*** script:
  ```bash
    python train.py
@@ -78,15 +78,12 @@ This script will:
   - Fine-tune the BERT-based model and save it in ./model/bert_lense.
   - Fine-tune the GPT-based model and save it in ./model/gpt_lense.
 
-### STEP 4. Detection
+### STEP 3. Detection
 After training, you can perform fake news detection by running the ***detect.py*** script:
  ```bash
    python detect.py
    ```
-You can modify the test_cases list in the script with your own examples for testing.
-
-### STEP 5. Sample Test Cases
-The ***detect.py*** script includes several test cases. You can customize them with your examples:
+You can modify the 'test_cases' list in the script with your own examples for testing.
  ```python
    test_cases = [
     "Global Leaders Gather for Climate Summit...",
