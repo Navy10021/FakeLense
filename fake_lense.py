@@ -11,8 +11,8 @@ print("Using", device)
 
 # 1. Load Dataset
 def load_data(train_path, test_path):
-    train_data = pd.read_csv(train_path)
-    test_data = pd.read_csv(test_path)
+    train_data = pd.read_csv(train_path, encoding='utf-8')
+    test_data = pd.read_csv(test_path, encoding='utf-8')
 
     train_texts = train_data['text'].tolist()
     train_labels = train_data['target'].tolist()
