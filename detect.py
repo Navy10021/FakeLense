@@ -4,7 +4,8 @@ from fake_lense import *
 bert_lense, bert_tokenizer = load_model_and_tokenizer('./model/bert_lense', AutoModelForSequenceClassification)
 gpt_lense, gpt_tokenizer = load_model_and_tokenizer('./model/gpt_lense', AutoModelForCausalLM)
 
-test_cases = [
+# Test Cases
+test_texts = [
     # Truth News
    "In the wake of the recent election, residents of Amherst gathered at the local common for a peaceful vigil, expressing solidarity and resolve. The event, which took place at Edwards Church, drew a large crowd from across the community. Speakers addressed the need for unity and moving forward with strength. The atmosphere was one of reflection and hope, as people discussed the implications of the election results and what steps can be taken next.",
    "Long before Hillary Clinton, Victoria Woodhull was the first woman to run for president, setting a precedent nearly 150 years ago. Woodhull, a progressive activist, advocated for women's suffrage, civil rights, and free love. Her candidacy was groundbreaking, challenging the societal norms of the time. Today, Woodhull's legacy lives on as women continue to break barriers in politics and beyond, inspired by her pioneering efforts.",
@@ -16,6 +17,6 @@ test_cases = [
    "A former government insider has come forward with explosive claims that a secret plan is in place to control the population through implanted microchips. According to the whistleblower, these microchips will be introduced under the guise of health and security measures, but their true purpose is to monitor and manipulate citizens. The source alleges that this plan has been in development for years and involves coordination between governments and tech companies.",
 ]
 
-for i, text in enumerate(test_cases):
+for i, text in enumerate(test_texts):
     result = FakeLense(text, bert_lense, bert_tokenizer, gpt_lense, gpt_tokenizer)
-    print(f"News {i} : {result}\n")
+    print(f"News {i+1} : {result}\n")
