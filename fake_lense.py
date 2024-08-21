@@ -21,7 +21,6 @@ def load_data(train_path, test_path):
 
     return train_texts, test_texts, train_labels, test_labels
 
-# 2. Train BERT-based model
 def tokenize_data(texts, tokenizer, max_length=512):
     if isinstance(texts, list):
         texts = [str(text) if text is not None else "" for text in texts]
@@ -30,12 +29,23 @@ def tokenize_data(texts, tokenizer, max_length=512):
 
     return tokenizer(texts, padding='max_length', truncation=True, return_tensors="pt", max_length=max_length)
 
-def train_bert(llm_name, train_texts, train_labels, test_texts, test_labels, output_dir='./model/bert_lense'):
-    if llm_name is None:
-        llm_name = 'roberta-base'
-    print("BERTLense is fine-tuned on", llm_name)
-    tokenizer = AutoTokenizer.from_pretrained(llm_name)
-    model = AutoModelForSequenceClassification.from_pretrained(llm_name, num_labels=2).to(device)
+# 2. Load Model and Tokenizer
+def load_model_and_tokenizer(model_dir, model_class):
+    model = model_class.from_pretrained(model_dir).to(device)
+    tokenizer = AutoTokenizer.from_pretrained(model_dir)
+    return model, tokenizer
+
+# 3. Train BERT-based model
+def train_bert(llm_name, train_texts, train_labels, test_texts, test_labels, epochs, fine_tune=False, output_dir='./model/bert_lense'):
+    if fine_tune and os.path.exists(output_dir):
+        model, tokenizer = load_model_and_tokenizer(output_dir, AutoModelForSequenceClassification)
+        print("BERTLense is fine-tuned on BERTLense again")
+    else:
+        if llm_name is None:
+            llm_name = 'roberta-base'
+        print("BERTLense is fine-tuned on", llm_name)
+        tokenizer = AutoTokenizer.from_pretrained(llm_name)
+        model = AutoModelForSequenceClassification.from_pretrained(llm_name, num_labels=2).to(device)
 
     train_encodings = tokenize_data(train_texts, tokenizer)
     test_encodings = tokenize_data(test_texts, tokenizer)
@@ -54,7 +64,7 @@ def train_bert(llm_name, train_texts, train_labels, test_texts, test_labels, out
 
     training_args = TrainingArguments(
         output_dir=output_dir,
-        num_train_epochs=3,
+        num_train_epochs=epochs,
         per_device_train_batch_size=8,
         per_device_eval_batch_size=8,
         evaluation_strategy="epoch",
@@ -94,14 +104,19 @@ def train_bert(llm_name, train_texts, train_labels, test_texts, test_labels, out
 
     return trainer, model, tokenizer
 
-# 3. Train GPT-based model
-def train_gpt(llm_name, train_texts, test_texts, output_dir='./model/gpt_lense'):
-    if llm_name is None:
-        llm_name = 'gpt2'
-    print("GPTLense is fine-tuned on", llm_name)
-    tokenizer = AutoTokenizer.from_pretrained(llm_name)
-    tokenizer.pad_token = tokenizer.eos_token
-    model = AutoModelForCausalLM.from_pretrained(llm_name).to(device)
+
+# 4. Train GPT-based model
+def train_gpt(llm_name, train_texts, test_texts, epochs, fine_tune=False, output_dir='./model/gpt_lense'):
+    if fine_tune and os.path.exists(output_dir):
+        model, tokenizer = load_model_and_tokenizer(output_dir, AutoModelForCausalLM)
+        print("GPTLense is fine-tuned on GPTLense again")
+    else:
+        if llm_name is None:
+            llm_name = 'gpt2'
+        print("GPTLense is fine-tuned on", llm_name)
+        tokenizer = AutoTokenizer.from_pretrained(llm_name)
+        tokenizer.pad_token = tokenizer.eos_token
+        model = AutoModelForCausalLM.from_pretrained(llm_name).to(device)
 
     train_encodings = tokenize_data(train_texts, tokenizer)
     test_encodings = tokenize_data(test_texts, tokenizer)
@@ -120,7 +135,7 @@ def train_gpt(llm_name, train_texts, test_texts, output_dir='./model/gpt_lense')
 
     training_args = TrainingArguments(
         output_dir=output_dir,
-        num_train_epochs=3,
+        num_train_epochs=epochs,
         per_device_train_batch_size=8,
         per_device_eval_batch_size=8,
         evaluation_strategy="epoch",
@@ -146,13 +161,8 @@ def train_gpt(llm_name, train_texts, test_texts, output_dir='./model/gpt_lense')
 
     return trainer, model, tokenizer
 
-# 4. Load Model and Tokenizer
-def load_model_and_tokenizer(model_dir, model_class):
-    model = model_class.from_pretrained(model_dir).to(device)
-    tokenizer = AutoTokenizer.from_pretrained(model_dir)
-    return model, tokenizer
 
-# 5. Fake News Detection
+# 5. Fake News Detection Model
 def FakeLense(text, bert_model, bert_tokenizer, gpt_model, gpt_tokenizer, similarity_threshold=0.8):
     bert_inputs = bert_tokenizer(text, return_tensors='pt', truncation=True, padding=True, max_length=512).to(device)
     bert_outputs = bert_model(**bert_inputs, output_hidden_states=True) # return hidden_states
@@ -166,7 +176,7 @@ def FakeLense(text, bert_model, bert_tokenizer, gpt_model, gpt_tokenizer, simila
 
     generated_bert_inputs = bert_tokenizer(generated_text, return_tensors='pt', truncation=True, padding=True, max_length=512).to(device)
     generated_bert_outputs = bert_model(**generated_bert_inputs, output_hidden_states=True)
-    
+
     # Extracting embeddings for cosine similarity
     bert_embedding = bert_outputs.hidden_states[-1][:,0,:]  # [CLS] token embedding from the last hidden layer
     generated_bert_embedding = generated_bert_outputs.hidden_states[-1][:,0,:]
