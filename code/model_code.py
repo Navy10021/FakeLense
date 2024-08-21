@@ -21,7 +21,6 @@ def load_data(train_path, test_path):
 
     return train_texts, test_texts, train_labels, test_labels
 
-# 2. Train BERT-based model
 def tokenize_data(texts, tokenizer, max_length=512):
     if isinstance(texts, list):
         texts = [str(text) if text is not None else "" for text in texts]
@@ -30,12 +29,23 @@ def tokenize_data(texts, tokenizer, max_length=512):
 
     return tokenizer(texts, padding='max_length', truncation=True, return_tensors="pt", max_length=max_length)
 
-def train_bert(llm_name, train_texts, train_labels, test_texts, test_labels, output_dir='./model/bert_lense'):
-    if llm_name is None:
-        llm_name = 'roberta-base'
-    print("BERTLense is fine-tuned on", llm_name)
-    tokenizer = AutoTokenizer.from_pretrained(llm_name)
-    model = AutoModelForSequenceClassification.from_pretrained(llm_name, num_labels=2).to(device)
+# 2. Load Model and Tokenizer
+def load_model_and_tokenizer(model_dir, model_class):
+    model = model_class.from_pretrained(model_dir).to(device)
+    tokenizer = AutoTokenizer.from_pretrained(model_dir)
+    return model, tokenizer
+
+# 3. Train BERT-based model
+def train_bert(llm_name, train_texts, train_labels, test_texts, test_labels, epochs, fine_tune=False, output_dir='./model/bert_lense'):
+    if fine_tune and os.path.exists(output_dir):
+        model, tokenizer = load_model_and_tokenizer(output_dir, AutoModelForSequenceClassification)
+        print("BERTLense is fine-tuned on BERTLense again")
+    else:
+        if llm_name is None:
+            llm_name = 'roberta-base'
+        print("BERTLense is fine-tuned on", llm_name)
+        tokenizer = AutoTokenizer.from_pretrained(llm_name)
+        model = AutoModelForSequenceClassification.from_pretrained(llm_name, num_labels=2).to(device)
 
     train_encodings = tokenize_data(train_texts, tokenizer)
     test_encodings = tokenize_data(test_texts, tokenizer)
@@ -54,7 +64,7 @@ def train_bert(llm_name, train_texts, train_labels, test_texts, test_labels, out
 
     training_args = TrainingArguments(
         output_dir=output_dir,
-        num_train_epochs=3,
+        num_train_epochs=epochs,
         per_device_train_batch_size=8,
         per_device_eval_batch_size=8,
         evaluation_strategy="epoch",
@@ -94,14 +104,19 @@ def train_bert(llm_name, train_texts, train_labels, test_texts, test_labels, out
 
     return trainer, model, tokenizer
 
-# 3. Train GPT-based model
-def train_gpt(llm_name, train_texts, test_texts, output_dir='./model/gpt_lense'):
-    if llm_name is None:
-        llm_name = 'gpt2'
-    print("GPTLense is fine-tuned on", llm_name)
-    tokenizer = AutoTokenizer.from_pretrained(llm_name)
-    tokenizer.pad_token = tokenizer.eos_token
-    model = AutoModelForCausalLM.from_pretrained(llm_name).to(device)
+
+# 4. Train GPT-based model
+def train_gpt(llm_name, train_texts, test_texts, epochs, fine_tune=False, output_dir='./model/gpt_lense'):
+    if fine_tune and os.path.exists(output_dir):
+        model, tokenizer = load_model_and_tokenizer(output_dir, AutoModelForCausalLM)
+        print("GPTLense is fine-tuned on GPTLense again")
+    else:
+        if llm_name is None:
+            llm_name = 'gpt2'
+        print("GPTLense is fine-tuned on", llm_name)
+        tokenizer = AutoTokenizer.from_pretrained(llm_name)
+        tokenizer.pad_token = tokenizer.eos_token
+        model = AutoModelForCausalLM.from_pretrained(llm_name).to(device)
 
     train_encodings = tokenize_data(train_texts, tokenizer)
     test_encodings = tokenize_data(test_texts, tokenizer)
@@ -120,7 +135,7 @@ def train_gpt(llm_name, train_texts, test_texts, output_dir='./model/gpt_lense')
 
     training_args = TrainingArguments(
         output_dir=output_dir,
-        num_train_epochs=3,
+        num_train_epochs=epochs,
         per_device_train_batch_size=8,
         per_device_eval_batch_size=8,
         evaluation_strategy="epoch",
@@ -146,13 +161,8 @@ def train_gpt(llm_name, train_texts, test_texts, output_dir='./model/gpt_lense')
 
     return trainer, model, tokenizer
 
-# 4. Load Model and Tokenizer
-def load_model_and_tokenizer(model_dir, model_class):
-    model = model_class.from_pretrained(model_dir).to(device)
-    tokenizer = AutoTokenizer.from_pretrained(model_dir)
-    return model, tokenizer
 
-# 5. Fake News Detection
+# 5. Fake News Detection Model
 def FakeLense(text, bert_model, bert_tokenizer, gpt_model, gpt_tokenizer, similarity_threshold=0.8):
     bert_inputs = bert_tokenizer(text, return_tensors='pt', truncation=True, padding=True, max_length=512).to(device)
     bert_outputs = bert_model(**bert_inputs, output_hidden_states=True) # return hidden_states
@@ -181,17 +191,21 @@ def FakeLense(text, bert_model, bert_tokenizer, gpt_model, gpt_tokenizer, simila
     
 # 6. Training Phase
 train_texts, test_texts, train_labels, test_labels = load_data("./data/train.csv", "./data/test.csv")
-gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt('EleutherAI/gpt-neo-125M', train_texts, test_texts)
-bert_trainer, bert_lense, bert_tokenizer = train_bert('microsoft/deberta-base', train_texts, train_labels, test_texts, test_labels)
+# 6-1. Train
+gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt(None, train_texts, test_texts, 1)
+bert_trainer, bert_lense, bert_tokenizer = train_bert(None, train_texts, train_labels, test_texts, test_labels, 1)
+# 6-2. Re-train
+#gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt(None, train_texts, test_texts, 1, True)
+#bert_trainer, bert_lense, bert_tokenizer = train_bert(None, train_texts, train_labels, test_texts, test_labels, 1, True)
 
 
 # 7. Detection Phase
 bert_lense, bert_tokenizer = load_model_and_tokenizer('./model/bert_lense', AutoModelForSequenceClassification)
 gpt_lense, gpt_tokenizer = load_model_and_tokenizer('./model/gpt_lense', AutoModelForCausalLM)
 
-# Test cases
-test_cases = [
-     # Truth News
+# Test Cases
+test_texts = [
+    # Truth News
    "In the wake of the recent election, residents of Amherst gathered at the local common for a peaceful vigil, expressing solidarity and resolve. The event, which took place at Edwards Church, drew a large crowd from across the community. Speakers addressed the need for unity and moving forward with strength. The atmosphere was one of reflection and hope, as people discussed the implications of the election results and what steps can be taken next.",
    "Long before Hillary Clinton, Victoria Woodhull was the first woman to run for president, setting a precedent nearly 150 years ago. Woodhull, a progressive activist, advocated for women's suffrage, civil rights, and free love. Her candidacy was groundbreaking, challenging the societal norms of the time. Today, Woodhull's legacy lives on as women continue to break barriers in politics and beyond, inspired by her pioneering efforts.",
    "The community was left in shock after the tragic death of FBI Special Agent David Raynor, who was found dead alongside his family in what authorities believe to be a murder-suicide. Raynor had been involved in several high-profile investigations, and his sudden death has raised many questions. Colleagues remember him as a dedicated officer who served with distinction. The investigation into the circumstances surrounding the incident continues.",
@@ -202,6 +216,6 @@ test_cases = [
    "A former government insider has come forward with explosive claims that a secret plan is in place to control the population through implanted microchips. According to the whistleblower, these microchips will be introduced under the guise of health and security measures, but their true purpose is to monitor and manipulate citizens. The source alleges that this plan has been in development for years and involves coordination between governments and tech companies.",
 ]
 
-for i, text in enumerate(test_cases):
+for i, text in enumerate(test_texts):
     result = FakeLense(text, bert_lense, bert_tokenizer, gpt_lense, gpt_tokenizer)
     print(f"News {i+1} : {result}\n")
