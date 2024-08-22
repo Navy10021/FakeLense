@@ -192,11 +192,11 @@ def FakeLense(text, bert_model, bert_tokenizer, gpt_model, gpt_tokenizer, simila
 # 6. Training Phase
 train_texts, test_texts, train_labels, test_labels = load_data("./data/train.csv", "./data/test.csv")
 # 6-1. Train
-gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt(None, train_texts, test_texts, 1)
-bert_trainer, bert_lense, bert_tokenizer = train_bert(None, train_texts, train_labels, test_texts, test_labels, 1)
+gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt(None, train_texts, test_texts, 3)
+bert_trainer, bert_lense, bert_tokenizer = train_bert(None, train_texts, train_labels, test_texts, test_labels, 3)
 # 6-2. Re-train
-#gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt(None, train_texts, test_texts, 1, True)
-#bert_trainer, bert_lense, bert_tokenizer = train_bert(None, train_texts, train_labels, test_texts, test_labels, 1, True)
+#gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt(None, train_texts, test_texts, 3, True)
+#bert_trainer, bert_lense, bert_tokenizer = train_bert(None, train_texts, train_labels, test_texts, test_labels, 3, True)
 
 
 # 7. Detection Phase
