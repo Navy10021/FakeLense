@@ -164,26 +164,29 @@ def train_gpt(llm_name, train_texts, test_texts, epochs, fine_tune=False, output
 
 # 5. Fake News Detection Model
 def FakeLense(text, bert_model, bert_tokenizer, gpt_model, gpt_tokenizer, similarity_threshold=0.8):
+    # BERT prediction
     bert_inputs = bert_tokenizer(text, return_tensors='pt', truncation=True, padding=True, max_length=512).to(device)
-    bert_outputs = bert_model(**bert_inputs, output_hidden_states=True) # return hidden_states
+    bert_outputs = bert_model(input_ids=bert_inputs['input_ids'], attention_mask=bert_inputs['attention_mask'], output_hidden_states=True)
     bert_prediction = torch.argmax(bert_outputs.logits, dim=1).item()
 
+    # GPT text generation
     #gpt_inputs = gpt_tokenizer.encode(text, return_tensors='pt', max_length=512, truncation=True).to(device)
     #gpt_outputs = gpt_model.generate(gpt_inputs, max_length=100)
     gpt_inputs = gpt_tokenizer.encode(text, return_tensors='pt', max_length=512, truncation=True).to(device)
     gpt_outputs = gpt_model.generate(gpt_inputs, max_length=100, pad_token_id=gpt_tokenizer.eos_token_id)
     generated_text = gpt_tokenizer.decode(gpt_outputs[0], skip_special_tokens=True)
 
+    # BERT prediction on GPT-generated text
     generated_bert_inputs = bert_tokenizer(generated_text, return_tensors='pt', truncation=True, padding=True, max_length=512).to(device)
-    generated_bert_outputs = bert_model(**generated_bert_inputs, output_hidden_states=True)
+    generated_bert_outputs = bert_model(input_ids=generated_bert_inputs['input_ids'], attention_mask=generated_bert_inputs['attention_mask'], output_hidden_states=True)
 
-    # Extracting embeddings for cosine similarity
-    bert_embedding = bert_outputs.hidden_states[-1][:,0,:]  # [CLS] token embedding from the last hidden layer
+    # Cosine similarity between original and generated text embeddings
+    bert_embedding = bert_outputs.hidden_states[-1][:,0,:]  # [CLS] token embedding
     generated_bert_embedding = generated_bert_outputs.hidden_states[-1][:,0,:]
-
     similarity = torch.nn.functional.cosine_similarity(bert_embedding, generated_bert_embedding, dim=1).item()
 
     if bert_prediction == 1 or similarity < similarity_threshold:
         return "Fake News Detected."
     else:
         return "Real News Detected."
+        
