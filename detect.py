@@ -1,9 +1,5 @@
 from fake_lense import * 
 
-# Detection Phase
-bert_lense, bert_tokenizer = load_model_and_tokenizer('./model/bert_lense', AutoModelForSequenceClassification)
-gpt_lense, gpt_tokenizer = load_model_and_tokenizer('./model/gpt_lense', AutoModelForCausalLM)
-
 # Test Cases
 test_texts = [
     # Truth News
@@ -16,6 +12,10 @@ test_texts = [
    "In a shocking twist, FBI Special Agent David Raynor, who was reportedly investigating a connection between Hillary Clinton and a satanic pedophile ring, was found dead in his home. While official reports suggest a murder-suicide, conspiracy theorists claim that Raynor was silenced to protect powerful figures involved in the ring. The Clinton campaign has denied these allegations, dismissing them as baseless conspiracy theories.",
    "A former government insider has come forward with explosive claims that a secret plan is in place to control the population through implanted microchips. According to the whistleblower, these microchips will be introduced under the guise of health and security measures, but their true purpose is to monitor and manipulate citizens. The source alleges that this plan has been in development for years and involves coordination between governments and tech companies.",
 ]
+
+# Detection Phase
+bert_lense, bert_tokenizer = load_model_and_tokenizer('./model/bert_lense', AutoModelForSequenceClassification)
+gpt_lense, gpt_tokenizer = load_model_and_tokenizer('./model/gpt_lense', AutoModelForCausalLM)
 
 for i, text in enumerate(test_texts):
     result = FakeLense(text, bert_lense, bert_tokenizer, gpt_lense, gpt_tokenizer)
