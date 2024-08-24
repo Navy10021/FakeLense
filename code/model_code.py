@@ -4,6 +4,8 @@ from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 import pandas as pd
 from datasets import Dataset
 import os
+import string
+import re
 
 # 0. GPU or CPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -29,13 +31,29 @@ def tokenize_data(texts, tokenizer, max_length=512):
 
     return tokenizer(texts, padding='max_length', truncation=True, return_tensors="pt", max_length=max_length)
 
-# 2. Load Model and Tokenizer
+# 2. Text Preprocessing
+def text_preprocessing(text):
+    # Check if the input is a string; if not, convert it to an empty string
+    if not isinstance(text, str):
+        text = ''
+    text = text.lower()
+    text = re.sub(r'\[.*?\]', '', text)
+    text = re.sub(r'https?://\S+|www\.\S+', '', text)
+    text = re.sub(r'<.*?>+', '', text)
+    text = re.sub(r'[%s]' % re.escape(string.punctuation + "–—−±×÷"), '', text)
+    text = re.sub(r'\n', '', text)
+    text = re.sub(r'\w*\d\w*', '', text)
+    text = re.sub(r'reuters', '', text)
+    text = re.sub(r' +', ' ', text).strip()
+    return text
+
+# 3. Load Model and Tokenizer
 def load_model_and_tokenizer(model_dir, model_class):
     model = model_class.from_pretrained(model_dir).to(device)
     tokenizer = AutoTokenizer.from_pretrained(model_dir)
     return model, tokenizer
 
-# 3. Train BERT-based model
+# 4. Train BERT-based model
 def train_bert(llm_name, train_texts, train_labels, test_texts, test_labels, epochs, fine_tune=False, output_dir='./model/bert_lense'):
     if fine_tune and os.path.exists(output_dir):
         model, tokenizer = load_model_and_tokenizer(output_dir, AutoModelForSequenceClassification)
@@ -105,7 +123,7 @@ def train_bert(llm_name, train_texts, train_labels, test_texts, test_labels, epo
     return trainer, model, tokenizer
 
 
-# 4. Train GPT-based model
+# 5. Train GPT-based model
 def train_gpt(llm_name, train_texts, test_texts, epochs, fine_tune=False, output_dir='./model/gpt_lense'):
     if fine_tune and os.path.exists(output_dir):
         model, tokenizer = load_model_and_tokenizer(output_dir, AutoModelForCausalLM)
@@ -162,8 +180,10 @@ def train_gpt(llm_name, train_texts, test_texts, epochs, fine_tune=False, output
     return trainer, model, tokenizer
 
 
-# 5. Fake News Detection Model
+# 6. Fake News Detection Model
 def FakeLense(text, bert_model, bert_tokenizer, gpt_model, gpt_tokenizer, similarity_threshold=0.8):
+    # Text preprocessing
+    text = text_preprocessing(text)
     # BERT prediction
     bert_inputs = bert_tokenizer(text, return_tensors='pt', truncation=True, padding=True, max_length=512).to(device)
     bert_outputs = bert_model(input_ids=bert_inputs['input_ids'], attention_mask=bert_inputs['attention_mask'], output_hidden_states=True)
@@ -191,20 +211,18 @@ def FakeLense(text, bert_model, bert_tokenizer, gpt_model, gpt_tokenizer, simila
         return "Real News Detected."
     
     
-# 6. Training Phase
+# 7. Training Phase
 train_texts, test_texts, train_labels, test_labels = load_data("./data/train.csv", "./data/test.csv")
-# 6-1. Train
+
+# 7-1. Train
 gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt(None, train_texts, test_texts, 3)
 bert_trainer, bert_lense, bert_tokenizer = train_bert(None, train_texts, train_labels, test_texts, test_labels, 3)
-# 6-2. Re-train
-#gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt(None, train_texts, test_texts, 3, True)
-#bert_trainer, bert_lense, bert_tokenizer = train_bert(None, train_texts, train_labels, test_texts, test_labels, 3, True)
 
+# 7-2. Re-train: If the user needs to continue training
+#gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt(None, train_texts, test_texts, 1, True)
+#bert_trainer, bert_lense, bert_tokenizer = train_bert(None, train_texts, train_labels, test_texts, test_labels, 1, True)
 
 # 7. Detection Phase
-bert_lense, bert_tokenizer = load_model_and_tokenizer('./model/bert_lense', AutoModelForSequenceClassification)
-gpt_lense, gpt_tokenizer = load_model_and_tokenizer('./model/gpt_lense', AutoModelForCausalLM)
-
 # Test Cases
 test_texts = [
     # Truth News
@@ -218,6 +236,11 @@ test_texts = [
    "A former government insider has come forward with explosive claims that a secret plan is in place to control the population through implanted microchips. According to the whistleblower, these microchips will be introduced under the guise of health and security measures, but their true purpose is to monitor and manipulate citizens. The source alleges that this plan has been in development for years and involves coordination between governments and tech companies.",
 ]
 
+# Detection Phase
+bert_lense, bert_tokenizer = load_model_and_tokenizer('./model/bert_lense', AutoModelForSequenceClassification)
+gpt_lense, gpt_tokenizer = load_model_and_tokenizer('./model/gpt_lense', AutoModelForCausalLM)
+
 for i, text in enumerate(test_texts):
     result = FakeLense(text, bert_lense, bert_tokenizer, gpt_lense, gpt_tokenizer)
     print(f"News {i+1} : {result}\n")
+    
