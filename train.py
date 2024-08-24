@@ -9,6 +9,6 @@ bert_trainer, bert_lense, bert_tokenizer = train_bert(None, train_texts, train_l
 # GPTLense : Train on GPT-based model 
 gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt(None, train_texts, test_texts, 3)
 
-# If user need to continue training
-#gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt(None, train_texts, test_texts, 3, True)
-#bert_trainer, bert_lense, bert_tokenizer = train_bert(None, train_texts, train_labels, test_texts, test_labels, 3, True)
+# Re-train : If user needs to continue training
+#gpt_trainer, gpt_lense, gpt_tokenizer = train_gpt(None, train_texts, test_texts, 1, True)
+#bert_trainer, bert_lense, bert_tokenizer = train_bert(None, train_texts, train_labels, test_texts, test_labels, 1, True)
