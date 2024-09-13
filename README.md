@@ -121,6 +121,7 @@ The main feature of this code is its implementation, which focuses on enhancing 
    ```
 
 ## 📈 Fake News Detection Performance Evaluation Results
+The experimental results demonstrated a **high detection accuracy of over 98%**, proving the tool's effectiveness in identifying fake news. **FakeLense** is expected to serve as an innovative "cognitive warfare" tool, capable of addressing misinformation across various channels and contributing to national interests.
 
 ![image](https://github.com/user-attachments/assets/eb230d6e-609a-4d88-b43f-8e3b5d8d0794)
 
