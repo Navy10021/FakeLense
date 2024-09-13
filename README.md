@@ -120,6 +120,11 @@ The main feature of this code is its implementation, which focuses on enhancing 
     ...
    ```
 
+## 📈 Fake News Detection Performance Evaluation Results
+
+![image](https://github.com/user-attachments/assets/141e9a6e-342f-4762-ab41-2bb0a2101a79)
+
+
 ## 👨‍💻 Contributors
 - **Seoul National University Graduate School of Data Science (SNU GSDS)**
 - Under the guidance of ***Navy Lee***
