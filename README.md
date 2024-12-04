@@ -110,11 +110,12 @@ The ***filter.py*** script includes:
 
 #### 1. Keyword Expansion.
   - Expands the initial keyword set using: WordNet (semantic synonyms), Word2Vec (embedding-based similarity), Sentence Transformers (contextual similarity), GPT (generative keyword extension).
+  - 
 #### 2. TF-IDF Filtering.
 Filters input text based on its relevance score using TF-IDF.
 
 #### 3. Combined Filtering.
-Combines keyword-based and TF-IDF-based filters to optimize input text for the detection phase.
+Combines **1.keyword-based** and **2.TF-IDF-based filters** to optimize input text for the detection phase.
 Modify the ***test_texts*** list in ***'filter.py'*** to use your own examples:
  ```python
    test_cases = [
@@ -151,6 +152,27 @@ The main feature of this code is its implementation, which focuses on enhancing 
    def FakeLense(text, bert_model, bert_tokenizer, gpt_model, gpt_tokenizer, similarity_threshold=0.8):
     ...
    ```
+
+## 🕵️‍♂️ Filtering Phase
+The **Advanced NLP-Based Keyword Filtering** process preprocesses the input text to maximize the accuracy and relevance of the FakeLense detection model. The filtering process integrates the following key steps:
+### 1. Keyword Expansion
+The filtering pipeline begins by expanding the initial keyword set. This ensures a broader and more comprehensive detection of relevant content:
+  - **WordNet Expansion**: Adds synonyms and semantically related terms.
+  - **Word2Vec Expansion**: Identifies terms with high similarity in vector space.
+  - **Sentence Transformers Expansion**: Finds contextually similar phrases and sentences.
+  - **GPT-Based Expansion**: Generates new, relevant keywords using a generative language model.
+
+### 2. TF-IDF Filtering
+Using the expanded keywords as a base, a TF-IDF vectorizer is trained to compute relevance scores for input text. Texts with scores below the defined threshold are filtered out, ensuring only the most relevant content is passed to the FakeLense detection system.
+
+### 3. Combined Filtering
+The final phase combines keyword-based matching and TF-IDF relevance scoring to preprocess input text efficiently. Texts must match one or more expanded keywords and meet the TF-IDF threshold to pass.
+
+### Benefits
+  - Reduces irrelevant inputs to the FakeLense detection pipeline.
+  - Enhances the overall detection accuracy by ensuring cleaner, more focused data.
+  - Automatically adapts to new patterns of disinformation through keyword expansion.
+
 
 ## 📈 Fake News Detection Performance Evaluation Results
 The experimental results demonstrated a **high detection accuracy of over 98%**, proving the tool's effectiveness in identifying fake news. **FakeLense** is expected to serve as an innovative "cognitive warfare" tool, capable of addressing misinformation across various channels and contributing to national interests.
