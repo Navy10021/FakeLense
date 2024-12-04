@@ -163,7 +163,7 @@ The main feature of this code is its implementation, which focuses on enhancing 
     ...
    ```
 
-## 🕵️‍♂️ Filtering Phase
+## 🧹 Filtering Phase
 The **Advanced NLP-Based Keyword Filtering** process preprocesses the input text to maximize the accuracy and relevance of the FakeLense detection model. The filtering process integrates the following key steps:
 ### 1. Keyword Expansion
 The filtering pipeline begins by expanding the initial keyword set. This ensures a broader and more comprehensive detection of relevant content:
