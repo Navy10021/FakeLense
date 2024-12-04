@@ -1,6 +1,7 @@
 import nltk
 nltk.download('wordnet')
 nltk.download('punkt')
+nltk.download('punkt_tab')
 
 from nltk.tokenize import word_tokenize
 from gensim.models.keyedvectors import KeyedVectors
