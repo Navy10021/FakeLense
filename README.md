@@ -108,11 +108,12 @@ Run the ***'filter.py'*** script to apply advanced filtering:
    ```
 The ***filter.py*** script includes:
 
-**1. Keyword Expansion.**
+#### 1. Keyword Expansion.
   - Expands the initial keyword set using: WordNet (semantic synonyms), Word2Vec (embedding-based similarity), Sentence Transformers (contextual similarity), GPT (generative keyword extension).
-**2. TF-IDF Filtering.**
+#### 2. TF-IDF Filtering.
 Filters input text based on its relevance score using TF-IDF.
-**3. Combined Filtering.**
+
+#### 3. Combined Filtering.
 Combines keyword-based and TF-IDF-based filters to optimize input text for the detection phase.
 Modify the ***test_texts*** list in ***'filter.py'*** to use your own examples:
  ```python
