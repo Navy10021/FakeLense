@@ -100,6 +100,37 @@ News 3: Fake News Detected.
 News 4: Real News Detected.
  ```
 
+### STEP 4. Filtering
+After training and detection, you can apply advanced filtering techniques to preprocess and refine input text for fake news detection. These filtering steps leverage NLP-based keyword expansion and TF-IDF scoring to ensure only relevant content is passed to the FakeLense detection pipeline.
+Run the ***filter.py*** script to apply advanced filtering:
+ ```bash
+   python filter.py
+   ```
+The ***filter.py*** script includes:
+
+**1. Keyword Expansion.**
+  - Expands the initial keyword set using: WordNet (semantic synonyms), Word2Vec (embedding-based similarity), Sentence Transformers (contextual similarity), GPT (generative keyword extension).
+**2. TF-IDF Filtering.**
+Filters input text based on its relevance score using TF-IDF.
+**3. Combined Filtering.**
+Combines keyword-based and TF-IDF-based filters to optimize input text for the detection phase.
+Modify the ***test_texts*** list in ***filter.py*** to use your own examples:
+ ```python
+   test_cases = [
+    "In the wake of the recent election, residents of Amherst gathered at the local common...",
+    "In a shocking twist, FBI Special Agent David Raynor, who was reportedly investigating a connection between Hillary Clinton...",
+    ...
+]
+   ```
+
+An example output:
+ ```bash
+[PASS] Relevant text: Cyber attacks are becoming more frequent globally.
+[PASS] Relevant text: The government plans to tackle fake news through AI systems.
+[FILTERED] Irrelevant text: Unrelated text about cooking recipes.
+   ```
+
+
 ## 🏋️‍♂️ Training Phase
 ### BERTLense: Train BERT-Based Model
 BERT-based models can be fine-tuned using the ***'train_bert'*** function on pre-trained BERT-based LLMs. Here, you can build **BERTLense** by applying various BERT-based models. The default for LLMs is 'roberta-base'.
