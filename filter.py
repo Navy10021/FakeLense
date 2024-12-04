@@ -176,10 +176,9 @@ if __name__ == "__main__":
     # 2.TF-IDF 학습
     print(">> Training TF-IDF...")
     corpus = [
-        "cyber attack is a growing threat to security",
-        "fake news is spreading rapidly",
-        "disinformation campaigns are common in modern conflicts",
-        "security threats require better strategies"
+        "Cyber attacks have become increasingly sophisticated, targeting critical infrastructure and government systems.",
+        "Fake news campaigns on social media platforms are influencing public opinion and undermining democratic processes.",
+        "Disinformation campaigns are being utilized by state and non-state actors",
     ]
     tfidf_vectorizer, tfidf_matrix = train_tfidf(corpus)
 
