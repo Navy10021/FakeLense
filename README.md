@@ -114,7 +114,7 @@ News 4: Real News Detected.
 After training and detection, you can apply advanced filtering techniques to preprocess and refine input text for fake news detection. These filtering steps leverage NLP-based keyword expansion and TF-IDF scoring to ensure only relevant content is passed to the FakeLense detection pipeline.
 Run the ***'filter.py'*** script to apply advanced filtering:
  ```bash
-   python filter.py
+   python model/filter.py
    ```
 The ***filter.py*** script includes:
 
