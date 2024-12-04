@@ -15,11 +15,11 @@ import numpy as np
 # 1. WordNet-based synonym expansion
 def expand_keywords_with_wordnet(keywords):
     """
-    WordNet을 활용해 초기 키워드의 동의어를 확장합니다.
+    WordNet을 활용해 초기 키워드의 동의어 확장 함수
     :param keywords: 초기 키워드 집합
     :return: 확장된 키워드 집합
     """
-    expanded_keywords = set(keywords)  # 확장된 키워드 저장
+    expanded_keywords = set(keywords)  
     for keyword in keywords:
         # WordNet의 Synset에서 동의어 추출
         for synset in wordnet.synsets(keyword):
@@ -30,7 +30,7 @@ def expand_keywords_with_wordnet(keywords):
 # 2. Word Embedding-based expansion (Word2Vec)
 def expand_keywords_with_word2vec(keyword, model, top_n=5):
     """
-    Word2Vec 모델을 사용하여 키워드와 유사한 단어를 확장합니다.
+    Word2Vec 모델을 사용하여 키워드와 유사한 단어 확장 함수
     :param keyword: 단일 키워드
     :param model: Word2Vec 모델
     :param top_n: 유사 단어 개수
@@ -47,7 +47,7 @@ def expand_keywords_with_word2vec(keyword, model, top_n=5):
 # 3. Sentence Transformers-based expansion
 def expand_keywords_with_sentence_transformer(keywords, sentence_model, top_n=3):
     """
-    Sentence Transformers를 사용해 키워드의 의미를 확장합니다.
+    Sentence Transformers를 사용해 키워드의 의미(Semantic) 확장 함수
     :param keywords: 초기 키워드 집합
     :param sentence_model: Sentence Transformers 모델
     :param top_n: 관련 문구 개수
@@ -75,7 +75,7 @@ def expand_keywords_with_sentence_transformer(keywords, sentence_model, top_n=3)
 # 4. Transformer-based expansion (GPT)
 def expand_keywords_with_gpt(keywords, max_length=50, num_return_sequences=1):
     """
-    GPT 모델을 사용해 키워드를 확장합니다.
+    GPT 모델을 사용해 키워드 확장 함수
     :param keywords: 초기 키워드 리스트
     :param max_length: 생성되는 텍스트의 최대 길이
     :param num_return_sequences: 반환할 결과물 수
@@ -91,7 +91,7 @@ def expand_keywords_with_gpt(keywords, max_length=50, num_return_sequences=1):
                 prompt,
                 max_length=max_length,  # 생성되는 텍스트 길이 제한
                 num_return_sequences=num_return_sequences,  # 반환할 결과물 수
-                truncation=True,  # 텍스트를 트렁케이션
+                truncation=True,  # 텍스트 트렁케이션
                 #pad_token_id=gpt_model.tokenizer.eos_token_id  # 패딩 토큰 명시
             )
 
@@ -108,7 +108,7 @@ def expand_keywords_with_gpt(keywords, max_length=50, num_return_sequences=1):
 # 5. TF-IDF-based Filtering
 def train_tfidf(corpus):
     """
-    TF-IDF 벡터라이저를 학습합니다.
+    TF-IDF 벡터라이저를 학습 함수
     :param corpus: 학습용 코퍼스 (텍스트 리스트)
     :return: TF-IDF 벡터라이저와 학습된 TF-IDF 행렬
     """
@@ -118,7 +118,7 @@ def train_tfidf(corpus):
 
 def tfidf_filtering(text, tfidf_vectorizer, threshold=0.2):
     """
-    TF-IDF 점수를 기반으로 텍스트를 필터링합니다.
+    TF-IDF 점수를 기반으로 텍스트를 필터링 함수
     :param text: 입력 텍스트
     :param tfidf_vectorizer: 학습된 TF-IDF 벡터라이저
     :param threshold: 필터링 임계값
@@ -131,7 +131,7 @@ def tfidf_filtering(text, tfidf_vectorizer, threshold=0.2):
 # 6. Text Filtering (Combined all filters)
 def filter_text(text, expanded_keywords, tfidf_vectorizer=None, use_tfidf=False):
     """
-    키워드 및 TF-IDF를 조합하여 텍스트를 필터링합니다.
+    키워드 및 TF-IDF 등 모든 필터링이 적용된 텍스트 필터링 함수
     :param text: 입력 텍스트
     :param expanded_keywords: 확장된 키워드 집합
     :param tfidf_vectorizer: 학습된 TF-IDF 벡터라이저 (선택 사항)
