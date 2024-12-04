@@ -10,13 +10,23 @@
 
 ## 🎓 Introduction
 
-Fake news refers to intentionally fabricated information spread to mislead, manipulate, or gain attention for political, economic, or other malicious purposes. The rapid proliferation of fake news, fueled by advancements in social media (SNS) and artificial intelligence (AI), has led to increasingly severe negative impacts on society. With the development of generative AI technologies, the risk of widespread distribution of fake news that is difficult to distinguish from genuine information has amplified. Moreover, fake news creators are becoming more sophisticated, concealing their identities and engaging in activities exacerbating social division and polarization.
+ake news, defined as intentionally fabricated information designed to mislead, manipulate, or gain attention for political, economic, or other malicious purposes, has become one of the most pressing challenges of the digital age. Its rapid proliferation, fueled by the ubiquitous nature of social media (SNS) and the advancements in artificial intelligence (AI), has caused increasingly severe societal impacts. From undermining democratic processes to eroding trust in credible institutions, the consequences of fake news are far-reaching and multifaceted.
 
-In response to the significant security threats posed by false and manipulated information, governments worldwide are establishing new organizations dedicated to combating these issues. This project, **FakeLense**, aims to contribute to these efforts by developing an advanced tool for detecting fake news using cutting-edge natural language processing (NLP) technology.
+The advent of generative AI technologies has further exacerbated this issue, enabling the creation of highly realistic yet deceptive content that is increasingly difficult to distinguish from genuine information. Fake news creators have become more sophisticated, employing advanced AI tools to automate the generation of misleading narratives while concealing their identities. This has not only heightened the volume of disinformation but has also deepened social divisions, fueled polarization, and destabilized public trust.
+
+Recognizing the significant security threats posed by false and manipulated information, governments and organizations worldwide are intensifying efforts to address these challenges. New frameworks, strategies, and specialized entities are being established to combat the spread of disinformation, protect democratic processes, and preserve societal cohesion.
+
+**FakeLense** is an innovative response to this global challenge. Leveraging state-of-the-art natural language processing (NLP) technology, this project aims to detect and prevent the dissemination of fake news with unprecedented accuracy. By combining advanced machine learning models, real-time detection capabilities, and a hybrid approach using BERT and GPT technologies, **FakeLense** is designed not only to identify disinformation effectively but also to adapt dynamically to evolving patterns of malicious content. This cutting-edge tool aspires to empower governments, organizations, and individuals in their fight against disinformation, safeguarding the integrity of information and fostering a more informed and cohesive society.
 
 ## 📑 Project Overview
 
-**FakeLense** is an NLP-powered tool specifically designed to automatically detect and prevent the spread of fake news and disinformation. By leveraging a hybrid detection system that combines the text comprehension capabilities of **BERT** (Bidirectional Encoder Representations from Transformers) and the generative abilities of **GPT** (Generative Pre-trained Transformer) **Large Language Models**, FakeLense aims to achieve a high accuracy in identifying and counteracting disinformation. To train these models effectively, a dataset of **63,678 real and fake news texts** was crawled and utilized, ensuring robust performance in distinguishing between genuine content and disinformation.
+**FakeLense** is an advanced NLP-powered tool meticulously crafted to automatically detect and prevent the proliferation of fake news and disinformation. By leveraging a hybrid detection system that integrates the text comprehension prowess of **BERT** (Bidirectional Encoder Representations from Transformers) and the generative capabilities of **GPT** (Generative Pre-trained Transformer) Large Language Models, **FakeLense** is designed to achieve exceptional accuracy in identifying and countering disinformation. This **hybrid approach** not only ensures precision in classification but also enhances adaptability to evolving patterns of malicious content.
+
+To train these models effectively, a comprehensive dataset of **63,678 real and fake news texts** was crawled and meticulously preprocessed. This dataset serves as a robust foundation, enabling **FakeLense** to consistently distinguish between genuine content and disinformation across diverse contexts.
+
+An integral part of the **FakeLense** pipeline is the **Advanced NLP-Based Filtering Phase**, a sophisticated preprocessing mechanism that optimizes the detection system. This filtering phase employs cutting-edge techniques to expand, refine, and filter input data, ensuring only the most relevant and meaningful content is passed to the detection models. The filtering process includes: 1) Keyword Expansion using WordNet, Word2Vec, Sentence Transformers, and GPT. 2) TF-IDF Filtering for relevance scoring. 3) Combined Filtering to integrate keyword matching and TF-IDF scoring for maximum precision.
+A dual-layer filtering mechanism that integrates keyword-based matching with TF-IDF relevance scoring to maximize precision.
+**FakeLense** is not just a detection tool—it is a dynamic and intelligent solution designed to evolve alongside the challenges posed by modern disinformation campaigns. Its real-time capabilities, combined with a focus on adaptability and accuracy, make it a crucial resource for governments, organizations, and individuals striving to combat fake news effectively. By preprocessing, analyzing, and detecting disinformation with state-of-the-art methods, **FakeLense** contributes to safeguarding public trust, promoting informed decision-making, and mitigating the societal harms caused by disinformation.
 
 
 ![overall_pipeline](https://github.com/user-attachments/assets/2181f105-a6fe-49cb-8c90-97597a24e146)
@@ -26,6 +36,7 @@ In response to the significant security threats posed by false and manipulated i
 ### Key Features
   - **Hybrid Model Approach:** **FakeLense** combines BERT-based and GPT-based models to enhance detection accuracy.
   - **Focus on Disinformation:** The project targets the detection and prevention of disinformation—factually incorrect and maliciously intended content.
+  - **Advanced Filtering:** By incorporating an advanced filtering phase, FakeLense not only improves detection accuracy but also strengthens its capability to address real-world challenges in combating disinformation.
   - **Real-time Detection:** **FakeLense** can be integrated into content platforms to monitor and flag potential fake news in real-time, preventing dissemination.
   - **Mitigating Social Harm:** By effectively blocking fake news, **FakeLense** aims to reduce unnecessary social conflicts, prevent the polarization of public opinion, and save national resources from being wasted on dealing with the consequences of misinformation.
 
@@ -38,7 +49,6 @@ Fake news can be categorized into three main types:
   3. **MisInformation:** Information that is factually incorrect but not maliciously intended (false O, malicious X).
 
 **FakeLense** focuses on detecting and blocking **Disinformation**—the most harmful type of fake news that misleads the public with incorrect data and malicious motives.
-
 
 ## 🛠️ Usage
 Before you begin, ensure that you have Python 3.7 or higher installed. Install the required dependencies with the following command:
@@ -169,10 +179,9 @@ Using the expanded keywords as a base, a TF-IDF vectorizer is trained to compute
 The final phase combines keyword-based matching and TF-IDF relevance scoring to preprocess input text efficiently. Texts must match one or more expanded keywords and meet the TF-IDF threshold to pass.
 
 ### Benefits
-  - Reduces irrelevant inputs to the FakeLense detection pipeline.
-  - Enhances the overall detection accuracy by ensuring cleaner, more focused data.
-  - Automatically adapts to new patterns of disinformation through keyword expansion.
-
+  - **Accuracy Boost**: Ensures the detection models receive only high-quality and relevant data, leading to more accurate fake news classification.
+  - **Adaptability**: The dynamic keyword expansion techniques allow the system to adapt to new trends and patterns in disinformation.
+  - **Efficiency:** Reduces computational load by eliminating unnecessary or irrelevant inputs early in the pipeline.
 
 ## 📈 Fake News Detection Performance Evaluation Results
 The experimental results demonstrated a **high detection accuracy of over 98%**, proving the tool's effectiveness in identifying fake news. **FakeLense** is expected to serve as an innovative "cognitive warfare" tool, capable of addressing misinformation across various channels and contributing to national interests.
