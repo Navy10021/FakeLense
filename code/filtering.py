@@ -2,7 +2,6 @@ import nltk
 nltk.download('wordnet')
 nltk.download('punkt')
 nltk.download('punkt_tab')
-
 from nltk.tokenize import word_tokenize
 from gensim.models.keyedvectors import KeyedVectors
 from sentence_transformers import SentenceTransformer, util
@@ -27,6 +26,7 @@ def expand_keywords_with_wordnet(keywords):
                 expanded_keywords.add(lemma.name().replace("_", " "))  # 언더스코어(_) 제거
     return expanded_keywords
 
+
 # 2. Word Embedding-based expansion (Word2Vec)
 def expand_keywords_with_word2vec(keyword, model, top_n=5):
     """
@@ -43,6 +43,7 @@ def expand_keywords_with_word2vec(keyword, model, top_n=5):
     except KeyError:
         # 키워드가 모델에 없는 경우 빈 집합 반환
         return set()
+
 
 # 3. Sentence Transformers-based expansion
 def expand_keywords_with_sentence_transformer(keywords, sentence_model, top_n=3):
@@ -72,6 +73,7 @@ def expand_keywords_with_sentence_transformer(keywords, sentence_model, top_n=3)
                 expanded_keywords.add(phrase)
     return expanded_keywords
 
+
 # 4. Transformer-based expansion (GPT)
 def expand_keywords_with_gpt(keywords, max_length=50, num_return_sequences=1):
     """
@@ -89,9 +91,9 @@ def expand_keywords_with_gpt(keywords, max_length=50, num_return_sequences=1):
             # 텍스트 생성
             responses = gpt_model(
                 prompt,
-                max_length=max_length,  # 생성되는 텍스트 길이 제한
-                num_return_sequences=num_return_sequences,  # 반환할 결과물 수
-                truncation=True,  # 텍스트 트렁케이션
+                max_length=max_length,                          # 생성되는 텍스트 길이 제한
+                num_return_sequences=num_return_sequences,      # 반환할 결과물 수
+                truncation=True,                                # 텍스트 트렁케이션
                 #pad_token_id=gpt_model.tokenizer.eos_token_id  # 패딩 토큰 명시
             )
 
@@ -104,6 +106,7 @@ def expand_keywords_with_gpt(keywords, max_length=50, num_return_sequences=1):
             print(f"Error generating keywords for '{keyword}': {e}")
 
     return expanded_keywords
+
 
 # 5. TF-IDF-based Filtering
 def train_tfidf(corpus):
@@ -125,8 +128,9 @@ def tfidf_filtering(text, tfidf_vectorizer, threshold=0.2):
     :return: 필터링 여부 (True/False)
     """
     tfidf_scores = tfidf_vectorizer.transform([text]).toarray()
-    max_score = np.max(tfidf_scores)  # TF-IDF 점수 중 최대값
+    max_score = np.max(tfidf_scores)                # TF-IDF 점수 중 최대값
     return max_score >= threshold
+
 
 # 6. Text Filtering (Combined all filters)
 def filter_text(text, expanded_keywords, tfidf_vectorizer=None, use_tfidf=False):
@@ -139,7 +143,7 @@ def filter_text(text, expanded_keywords, tfidf_vectorizer=None, use_tfidf=False)
     :return: 필터링 여부 (True/False)
     """
     # Keyword Filtering
-    tokens = nltk.word_tokenize(text.lower())  # 입력 텍스트 토큰화
+    tokens = nltk.word_tokenize(text.lower())       # 입력 텍스트 토큰화
     keyword_match = any(keyword.lower() in tokens for keyword in expanded_keywords)
 
     # TF-IDF Filtering
@@ -151,8 +155,7 @@ def filter_text(text, expanded_keywords, tfidf_vectorizer=None, use_tfidf=False)
     return keyword_match and tfidf_match
 
 
-
-
+# MAIN code
 if __name__ == "__main__":
     # 0. Load Pre-trained models
     print(">> Loading models...")
@@ -170,7 +173,6 @@ if __name__ == "__main__":
         keywords.update(expand_keywords_with_word2vec(keyword, word2vec_model))
     keywords = expand_keywords_with_sentence_transformer(keywords, sentence_model)
     keywords = expand_keywords_with_gpt(keywords, gpt_model)
-    
     # Remove duplicates in final keywords
     keywords = set(keywords)
     print("Final expanded keywords:", sorted(keywords)) 
@@ -197,5 +199,3 @@ if __name__ == "__main__":
     for idx, text in enumerate(test_texts, 1):
         result = "[PASS]" if filter_text(text, keywords, tfidf_vectorizer, use_tfidf=True) else "[FILTERED]"
         print(f"{result} Test {idx}: {text}")
-
-
