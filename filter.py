@@ -170,7 +170,6 @@ if __name__ == "__main__":
         keywords.update(expand_keywords_with_word2vec(keyword, word2vec_model))
     keywords = expand_keywords_with_sentence_transformer(keywords, sentence_model)
     keywords = expand_keywords_with_gpt(keywords, gpt_model)
-    
     # Remove duplicates in final keywords
     keywords = set(keywords)
     print("Final expanded keywords:", sorted(keywords)) 
