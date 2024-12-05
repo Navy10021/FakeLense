@@ -114,8 +114,8 @@ News 4: Real News Detected.
 ### STEP @: Filtering (Optional but Recommended)
 
 Filtering is an optional but highly recommended step that can be applied both during the data construction phase and the detection pipeline. By preprocessing and refining the input text, you can improve the quality and relevance of data used for fake news detection. This ensures that only meaningful content is passed forward, enhancing the overall performance of the system.
-	- During Data Construction: Apply filtering to preprocess raw data, ensuring a high-quality dataset for training and testing.
-  -	In the Detection Pipeline: Refine real-time input data before passing it to the FakeLense detection model.
+	 - During Data Construction: Apply filtering to preprocess raw data, ensuring a high-quality dataset for training and testing.
+	 -	In the Detection Pipeline: Refine real-time input data before passing it to the FakeLense detection model.
 By integrating filtering into both stages, you can maximize the accuracy and efficiency of the entire workflow.
  
  Run the filtering.py script to apply advanced NLP-based filtering:
