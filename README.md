@@ -119,7 +119,7 @@ Run the ***'filtering.py'*** script to apply advanced filtering:
 The ***filtering.py*** script includes:
 
 #### 1. Keyword Expansion.
-  - Expands the initial keyword set using: WordNet (semantic synonyms), Word2Vec (embedding-based similarity), Sentence Transformers (contextual similarity), GPT (generative keyword extension).
+Expands the initial keyword set using: WordNet (semantic synonyms), Word2Vec (embedding-based similarity), Sentence Transformers (contextual similarity), GPT (generative keyword extension).
 
 #### 2. TF-IDF Filtering.
 Filters input text based on its relevance score using TF-IDF.
