@@ -26,6 +26,7 @@ To train these models effectively, a comprehensive dataset of **63,678 real and 
 
 An integral part of the **FakeLense** pipeline is the **Advanced NLP-Based Filtering Phase**, a sophisticated preprocessing mechanism that optimizes the detection system. This filtering phase employs cutting-edge techniques to expand, refine, and filter input data, ensuring only the most relevant and meaningful content is passed to the detection models. The filtering process includes: 1) **Keyword Expansion** using WordNet, Word2Vec, Sentence Transformers, and GPT. 2) **TF-IDF Filtering** for relevance scoring. 3) **Combined Filtering** to integrate keyword matching and TF-IDF scoring for maximum precision.
 A dual-layer filtering mechanism that integrates keyword-based matching with TF-IDF relevance scoring to maximize precision.
+
 **FakeLense** is not just a detection tool—it is a dynamic and intelligent solution designed to evolve alongside the challenges posed by modern disinformation campaigns. Its real-time capabilities, combined with a focus on adaptability and accuracy, make it a crucial resource for governments, organizations, and individuals striving to combat fake news effectively. By preprocessing, analyzing, and detecting disinformation with state-of-the-art methods, **FakeLense** contributes to safeguarding public trust, promoting informed decision-making, and mitigating the societal harms caused by disinformation.
 
 
