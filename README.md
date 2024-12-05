@@ -114,8 +114,8 @@ News 4: Real News Detected.
 ### STEP @: Filtering (Optional but Recommended)
 
 Filtering is an optional but highly recommended step that can be applied both during the data construction phase and the detection pipeline. By preprocessing and refining the input text, you can improve the quality and relevance of data used for fake news detection. This ensures that only meaningful content is passed forward, enhancing the overall performance of the system.
-	- During Data Construction: Apply filtering to preprocess raw data, ensuring a high-quality dataset for training and testing.
-	-	In the Detection Pipeline: Refine real-time input data before passing it to the FakeLense detection model.
+  - During Data Construction: Apply filtering to preprocess raw data, ensuring a high-quality dataset for training and testing.
+  - In the Detection Pipeline: Refine real-time input data before passing it to the FakeLense detection model.
 By integrating filtering into both stages, you can maximize the accuracy and efficiency of the entire workflow.
  
  Run the **filtering.py** script to apply advanced NLP-based filtering:
@@ -132,7 +132,7 @@ Filters input text based on its relevance score using TF-IDF.
 
 #### 3. Combined Filtering.
 Combines **1) keyword-based** and **2) TF-IDF-based filters** to optimize input text for the detection phase.
-Modify the ***test_texts*** list in ***'filter.py'*** to use your own examples:
+Modify the ***test_texts*** list in ***'filtering.py'*** to use your own examples:
 
  ```python
    test_cases = [
@@ -144,8 +144,8 @@ Modify the ***test_texts*** list in ***'filter.py'*** to use your own examples:
 
 An example output:
  ```bash
-[PASS] Relevant text: Cyber attacks are becoming more frequent globally.
-[PASS] Relevant text: The government plans to tackle fake news through AI systems.
+[PASS] Relevant text: In the wake of the recent election, residents of Amherst gathered at the local common...
+[PASS] Relevant text: In a shocking twist, FBI Special Agent David Raynor, who was reportedly investigating a connection between Hillary Clinton...
 [FILTERED] Irrelevant text: Unrelated text about cooking recipes.
    ```
 
