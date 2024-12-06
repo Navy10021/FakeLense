@@ -7,7 +7,7 @@
 </div>
 
 
-#### 국방부 주관 "2024 제1회 국방 AI 아이디어톤" AI 모델 개발 부문 수상작
+#### 국방부 주관 "2024 제1회 국방 AI 아이디어톤" AI 모델 개발 부문 우수 수상작 선정
 ## 🎓 Introduction
 
 Fake news, intentionally fabricated to mislead or manipulate for political, economic, or malicious purposes, has become a major challenge in the digital age. The rise of social media and advancements in AI have accelerated its spread, leading to significant societal impacts, including eroding trust in institutions and undermining democratic processes.
