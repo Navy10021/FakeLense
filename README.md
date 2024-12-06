@@ -29,7 +29,8 @@ Another critical feature of **FakeLense** is its advanced **NLP-based filtering*
 **FakeLense** is a dynamic and adaptable solution built to counter modern disinformation campaigns effectively. Its real-time detection capabilities, combined with advanced preprocessing methods, empower governments, organizations, and individuals to combat fake news, safeguard public trust, and mitigate the societal harm caused by disinformation.
 
 
-![image](https://github.com/user-attachments/assets/97332607-bc89-4346-ac8a-3b853cf63d42)
+![image](https://github.com/user-attachments/assets/e0944223-5624-42ee-9b45-9ffc8d3c75fc)
+
 
 
 
