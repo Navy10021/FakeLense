@@ -133,7 +133,7 @@ Filters input text based on its relevance score using TF-IDF.
 
 #### 3. Combined Filtering.
 Combines **1) keyword-based** and **2) TF-IDF-based filters** to optimize input text for the detection phase.
-Modify the ***test_texts*** list in ***'filtering.py'*** to use your own examples:
+Modify the ***test_texts*** list in **'filtering.py'** to use your own examples:
 
  ```python
    test_cases = [
