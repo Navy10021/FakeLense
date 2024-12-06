@@ -10,7 +10,7 @@
 
 ## 🎓 Introduction
 
-ake news, defined as intentionally fabricated information designed to mislead, manipulate, or gain attention for political, economic, or other malicious purposes, has become one of the most pressing challenges of the digital age. Its rapid proliferation, fueled by the ubiquitous nature of social media (SNS) and the advancements in artificial intelligence (AI), has caused increasingly severe societal impacts. From undermining democratic processes to eroding trust in credible institutions, the consequences of fake news are far-reaching and multifaceted.
+Fake news, defined as intentionally fabricated information designed to mislead, manipulate, or gain attention for political, economic, or other malicious purposes, has become one of the most pressing challenges of the digital age. Its rapid proliferation, fueled by the ubiquitous nature of social media (SNS) and the advancements in artificial intelligence (AI), has caused increasingly severe societal impacts. From undermining democratic processes to eroding trust in credible institutions, the consequences of fake news are far-reaching and multifaceted.
 
 The advent of generative AI technologies has further exacerbated this issue, enabling the creation of highly realistic yet deceptive content that is increasingly difficult to distinguish from genuine information. Fake news creators have become more sophisticated, employing advanced AI tools to automate the generation of misleading narratives while concealing their identities. This has not only heightened the volume of disinformation but has also deepened social divisions, fueled polarization, and destabilized public trust.
 
