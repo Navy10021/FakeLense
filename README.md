@@ -30,8 +30,8 @@ A dual-layer filtering mechanism that integrates keyword-based matching with TF-
 **FakeLense** is not just a detection tool—it is a dynamic and intelligent solution designed to evolve alongside the challenges posed by modern disinformation campaigns. Its real-time capabilities, combined with a focus on adaptability and accuracy, make it a crucial resource for governments, organizations, and individuals striving to combat fake news effectively. By preprocessing, analyzing, and detecting disinformation with state-of-the-art methods, **FakeLense** contributes to safeguarding public trust, promoting informed decision-making, and mitigating the societal harms caused by disinformation.
 
 
+![image](https://github.com/user-attachments/assets/97332607-bc89-4346-ac8a-3b853cf63d42)
 
-![image](https://github.com/user-attachments/assets/8ecd21e9-7bea-436d-90a4-3892a0fbbbcd)
 
 
 ### Key Features
