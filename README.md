@@ -32,6 +32,7 @@ A dual-layer filtering mechanism that integrates keyword-based matching with TF-
 
 ![overall_pipeline](https://github.com/user-attachments/assets/2181f105-a6fe-49cb-8c90-97597a24e146)
 
+![image](https://github.com/user-attachments/assets/8ecd21e9-7bea-436d-90a4-3892a0fbbbcd)
 
 
 ### Key Features
