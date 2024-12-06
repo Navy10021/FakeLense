@@ -32,8 +32,6 @@ Another critical feature of **FakeLense** is its advanced **NLP-based filtering*
 ![image](https://github.com/user-attachments/assets/e0944223-5624-42ee-9b45-9ffc8d3c75fc)
 
 
-
-
 ### Key Features
   - **Hybrid Model Approach.**  'FakeLense' combines BERT-based and GPT-based models to enhance detection accuracy.
   - **Focus on Disinformation.**  The project targets the detection and prevention of disinformation—factually incorrect and maliciously intended content.
@@ -41,7 +39,8 @@ Another critical feature of **FakeLense** is its advanced **NLP-based filtering*
   - **Real-time Detection.**  'FakeLense' can be integrated into content platforms to monitor and flag potential fake news in real-time, preventing dissemination.
   - **Mitigating Social Harm.**  By effectively blocking fake news, 'FakeLense' aims to reduce unnecessary social conflicts, prevent the polarization of public opinion, and save national resources from being wasted on dealing with the consequences of misinformation.
 
-### What is Fake News?
+
+## 🤷 What is Fake News?
 
 Fake news can be categorized into three main types:
 
