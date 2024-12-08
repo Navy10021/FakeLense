@@ -2,8 +2,8 @@
 if __name__ == "__main__":
     # 1. Load Pretrained Models
     print(">> Loading models...")
-    sentence_model = SentenceTransformer('all-MiniLM-L6-v2')  # Sentence-BERT model
-    gpt_model = pipeline("text-generation", model="distilgpt2")  # GPT-2 model pipeline
+    sentence_model = SentenceTransformer('all-MiniLM-L6-v2')        # Sentence-BERT model
+    gpt_model = pipeline("text-generation", model="distilgpt2")     # GPT-2 model pipeline
 
     # 2. Initialize Base Keywords for Each Category
     base_keywords = {
@@ -11,7 +11,9 @@ if __name__ == "__main__":
         "Politics": {"election", "president", "party", "policy", "diplomacy", "legislation"},
         "Economy": {"finance", "stock", "trade", "inflation", "recession", "unemployment"},
         "Issues": {"environment", "energy", "pandemic", "climate change", "biodiversity", "sustainability"},
-        "Technology": {"artificial intelligence", "blockchain", "cybersecurity", "quantum computing", "5G", "automation"}
+        "Technology": {"artificial intelligence", "blockchain", "cybersecurity", "quantum computing", "5G", "automation"},
+        "Sports": {"football", "basketball", "tournament", "championship"},
+        "Science": {"astronomy", "biology", "physics", "chemistry"},
     }
 
     # 3. Configure GPT Expansion
