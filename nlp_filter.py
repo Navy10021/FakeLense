@@ -8,6 +8,7 @@ import logging
 logging.getLogger("transformers").setLevel(logging.ERROR)
 nltk.download('wordnet')  # WordNet
 nltk.download('punkt')    # Tokenizer
+nltk.download('punkt_tab')
 
 
 # 1. WordNet Synonym Expansion
@@ -102,18 +103,35 @@ def expand_category_keywords(base_keywords, sentence_model, gpt_model, use_gpt=F
 
 
 # 5. Score News Using Sentence Embeddings
-def score_news_with_embeddings(news_text, category_keywords, sentence_model):
+def score_news_with_embeddings(news_text, category_keywords, sentence_model, split_into_sentences=True):
     """
     Calculate similarity score between news text and category keywords using Sentence-BERT.
+    Supports both whole-text embedding and sentence-level embedding approaches.
+    
     :param news_text: Input news text
     :param category_keywords: Set of expanded keywords for the category
     :param sentence_model: Pretrained Sentence-BERT model
+    :param split_into_sentences: If True, calculates scores at the sentence level; otherwise, whole-text level
     :return: Average similarity score
     """
-    text_embedding = sentence_model.encode(news_text, convert_to_tensor=True)                                           # Embed news text
+    if split_into_sentences:
+        # Split the news text into individual sentences
+        sentences = nltk.sent_tokenize(news_text)
+        # Compute embeddings for each sentence
+        text_embeddings = [sentence_model.encode(sentence, convert_to_tensor=True) for sentence in sentences]
+    else:
+        # Compute a single embedding for the entire news text
+        text_embeddings = [sentence_model.encode(news_text, convert_to_tensor=True)]
+
+    # Compute embeddings for each keyword in the category
     keyword_embeddings = [sentence_model.encode(keyword, convert_to_tensor=True) for keyword in category_keywords]
-    scores = [util.cos_sim(text_embedding, keyword_embedding).item() for keyword_embedding in keyword_embeddings]
-    return np.mean(scores)                                                                                              # Return average similarity
+
+    # Compute cosine similarity between text embeddings and keyword embeddings
+    scores = [util.cos_sim(text_embedding, keyword_embedding).item()
+              for text_embedding in text_embeddings
+              for keyword_embedding in keyword_embeddings]
+
+    return np.mean(scores)              # Return the average similarity score                                                              
 
 
 # 6. Filter News by Score
