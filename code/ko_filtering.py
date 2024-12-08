@@ -1,34 +1,34 @@
+# ! pip install konlpy
 from sentence_transformers import SentenceTransformer, util
 from transformers import pipeline
 import numpy as np
 import matplotlib.pyplot as plt
-from konlpy.tag import Okt  # 한국어 형태소 분석기
-import kss                  # 한국어 문장 분리 라이브러리
 import logging
-
 logging.getLogger("transformers").setLevel(logging.ERROR)
 
-# 형태소 분석기 초기화
-okt = Okt()
-
-# 1. 동의어 확장 함수
-def expand_keywords_with_custom_list(keywords):
+# 1. Hugging Face와 Sentence-BERT를 활용한 동의어 확장
+def expand_keywords_with_huggingface(keywords, model, sentence_model, similarity_threshold=0.7):
     """
-    사용자 정의 동의어 확장 (한국어 기반).
+    Hugging Face의 fill-mask pipeline과 Sentence-BERT를 결합한 동의어 확장
     """
-    synonym_dict = {
-        "환경": {"기후 변화", "온실가스", "재생 에너지", "탄소 중립"},
-        "정치": {"대통령", "총선", "정당", "의회"},
-        "경제": {"물가", "금리", "주식시장", "무역"},
-        # 필요한 카테고리에 따라 추가
-    }
     expanded_keywords = set(keywords)
     for keyword in keywords:
-        if keyword in synonym_dict:
-            expanded_keywords.update(synonym_dict[keyword])
+        masked_input = f"{keyword}는 [MASK]이다."  # 동의어 추론을 위한 문맥 제공
+        predictions = model(masked_input, top_k=5)  # 상위 5개의 예측 단어 가져오기
+        
+        keyword_embedding = sentence_model.encode(keyword, convert_to_tensor=True)
+        
+        for prediction in predictions:
+            token = prediction["token_str"].strip()
+            if token != keyword:
+                # 동의어와 원래 키워드 간의 유사도 계산
+                token_embedding = sentence_model.encode(token, convert_to_tensor=True)
+                similarity = util.cos_sim(keyword_embedding, token_embedding).item()
+                if similarity >= similarity_threshold:
+                    expanded_keywords.add(token)
     return expanded_keywords
 
-# 2. Sentence Transformers 확장
+# 2. Sentence-BERT를 활용한 키워드 확장
 def expand_keywords_with_sentence_transformer(keywords, sentence_model):
     expanded_keywords = set(keywords)
     for keyword in keywords:
@@ -45,42 +45,71 @@ def expand_keywords_with_sentence_transformer(keywords, sentence_model):
                 expanded_keywords.add(phrase)
     return expanded_keywords
 
-# 3. 뉴스 텍스트 점수 계산
+# 3. KoNLPy를 활용한 한국어 문장 분리
+def split_korean_sentences_konlpy(text):
+    from konlpy.tag import Okt
+    okt = Okt()
+    sentences = []
+    current_sentence = []
+
+    # 형태소 분석 후 처리
+    for word, pos in okt.pos(text, norm=True, stem=True):
+        current_sentence.append(word)
+        if pos in ["Punctuation", "SentenceFinal"]:  # 문장 끝 감지
+            sentences.append("".join(current_sentence))
+            current_sentence = []
+    
+    # 남아있는 문장 처리
+    if current_sentence:
+        sentences.append("".join(current_sentence))
+    
+    return sentences
+
+# 4. 뉴스 텍스트 점수 계산
 def score_news_with_embeddings(news_text, category_keywords, sentence_model, split_into_sentences=True):
+    """
+    뉴스 텍스트와 카테고리 키워드 간의 유사도 계산
+    :param news_text: 입력 뉴스 텍스트
+    :param category_keywords: 카테고리별 확장된 키워드
+    :param sentence_model: Sentence-BERT 모델
+    :param split_into_sentences: True일 경우 문장 단위로 분리하여 계산, False일 경우 전체 텍스트 임베딩 계산
+    :return: 평균 유사도 점수
+    """
     if split_into_sentences:
-        sentences = kss.split_sentences(news_text)
+        # 문장 단위로 분리하여 각 문장의 임베딩 계산
+        sentences = split_korean_sentences_konlpy(news_text)
         text_embeddings = [sentence_model.encode(sentence, convert_to_tensor=True) for sentence in sentences]
     else:
+        # 전체 텍스트 단위로 임베딩 계산
         text_embeddings = [sentence_model.encode(news_text, convert_to_tensor=True)]
 
+    # 키워드 임베딩 계산
     keyword_embeddings = [sentence_model.encode(keyword, convert_to_tensor=True) for keyword in category_keywords]
 
+    # 텍스트와 키워드 간 유사도 계산
     scores = [util.cos_sim(text_embedding, keyword_embedding).item()
               for text_embedding in text_embeddings
               for keyword_embedding in keyword_embeddings]
 
+    # 평균 점수 반환
     return np.mean(scores)
 
-# 4. 필터링 및 시각화
+# 5. 필터링 및 시각화
 def visualize_scores(scores, threshold, category):
     plt.figure(figsize=(8, 5))
-    plt.hist(scores, bins=15, alpha=0.7, label='점수 분포')
-    plt.axvline(threshold, color='red', linestyle='--', label=f'임계값: {threshold:.2f}')
-    plt.title(f'카테고리: {category}의 점수 분포')
-    plt.xlabel('점수')
-    plt.ylabel('빈도수')
+    plt.hist(scores, bins=15, alpha=0.7, label='Score distribution')
+    plt.axvline(threshold, color='red', linestyle='--', label=f'Threshold: {threshold:.2f}')
+    plt.title(f'Score Distribution for Category: {category}')
+    plt.xlabel('Score')
+    plt.ylabel('Frequency')
     plt.legend()
     plt.grid(True)
     plt.show()
 
-# 5. 임계값 최적화
+# 6. 임계값 최적화
 def optimize_threshold(scores, method='percentile', value=50):
     """
     점수 분포에 기반하여 필터링 임계값을 최적화합니다.
-    :param scores: 점수 리스트
-    :param method: 임계값 계산 방법 ('percentile' 또는 'mean')
-    :param value: 'percentile' 선택 시 백분위수 값
-    :return: 최적화된 임계값
     """
     if method == 'percentile':
         return np.percentile(scores, value)  # 지정한 백분위수 반환
@@ -89,12 +118,11 @@ def optimize_threshold(scores, method='percentile', value=50):
     else:
         raise ValueError("method는 'percentile' 또는 'mean'이어야 합니다.")
 
-# 메인 코드
 if __name__ == "__main__":
     # 1. 모델 로드
-    print(">> 모델 로드 중...")
-    sentence_model = SentenceTransformer('xlm-r-100langs-bert-base-nli-stsb-mean-tokens')  # 한국어 지원 모델
-    gpt_model = pipeline("text-generation", model="EleutherAI/gpt-neo-125M")  # GPT 모델 예시
+    print(">> Loading models...")
+    sentence_model = SentenceTransformer('xlm-r-100langs-bert-base-nli-stsb-mean-tokens')
+    huggingface_model = pipeline("fill-mask", model="bert-base-multilingual-cased")
 
     # 2. 카테고리 키워드 정의
     base_keywords = {
@@ -108,8 +136,13 @@ if __name__ == "__main__":
 }
 
     # 3. 키워드 확장
-    print(">> 키워드 확장 중...")
-    category_keywords = {category: expand_keywords_with_custom_list(keywords) for category, keywords in base_keywords.items()}
+    print(">> Expanding keywords...")
+    category_keywords = {}
+    for category, keywords in base_keywords.items():
+        expanded_keywords_hf = expand_keywords_with_huggingface(keywords, huggingface_model, sentence_model)
+        expanded_keywords = expand_keywords_with_sentence_transformer(expanded_keywords_hf, sentence_model)
+        category_keywords[category] = expanded_keywords
+        print(f"Category: {category}, Expanded Keywords: {expanded_keywords}")
 
     # 4. 테스트 뉴스 데이터
     test_news = [
@@ -155,23 +188,25 @@ if __name__ == "__main__":
     },
 ]
 
-    # 5. 뉴스 필터링 및 시각화
+    # 5. 뉴스 필터링 및 점수 계산
+    split_mode = True  # True: 문장 단위, False: 전체 텍스트 단위
     for category, keywords in category_keywords.items():
-        print(f"\n>> 카테고리: {category}")
+        print(f"\n>> Category: {category}")
         category_news = [news["text"] for news in test_news if news["category"] == category]
         if not category_news:
-            print(f"{category} 카테고리에 해당하는 뉴스가 없습니다.")
+            print(f"No news articles found for category: {category}")
             continue
 
         # 점수 계산
-        scores = [score_news_with_embeddings(news, keywords, sentence_model) for news in category_news]
+        scores = [score_news_with_embeddings(news, keywords, sentence_model, split_into_sentences=split_mode)
+                  for news in category_news]
         if not scores:
-            print(f"{category} 카테고리에 점수가 계산되지 않았습니다.")
+            print(f"No scores calculated for category: {category}")
             continue
 
         # 임계값 최적화
-        threshold = optimize_threshold(scores, method='percentile', value=50)  # 50th Percentile 기준
-        print(f"{category} 임계값: {threshold:.2f}")
+        threshold = optimize_threshold(scores, method='percentile', value=50)
+        print(f"Optimized Threshold for {category}: {threshold:.2f}")
 
         # 점수 분포 시각화
         visualize_scores(scores, threshold, category)
@@ -179,4 +214,4 @@ if __name__ == "__main__":
         # 필터링 결과 출력
         for news, score in zip(category_news, scores):
             status = "[PASS]" if score >= threshold else "[FILTERED]"
-            print(f"{status} [점수: {score:.4f}] {news}")
+            print(f"{status} [Score: {score:.4f}] {news}")
