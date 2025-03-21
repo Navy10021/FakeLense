@@ -8,6 +8,7 @@
 
 
 #### 국방부 주관 "2024 제1회 국방 AI 아이디어톤" AI 모델 개발 부문 우수 수상작 선정
+강화학습과 LLMs 기반 가짜뉴스 탐지 모델 ☞ FakeLenseV2 https://github.com/Navy10021/FakeLenseV2
 ## 🎓 Introduction
 
 Fake news, intentionally fabricated to mislead or manipulate for political, economic, or malicious purposes, has become a major challenge in the digital age. The rise of social media and advancements in AI have accelerated its spread, leading to significant societal impacts, including eroding trust in institutions and undermining democratic processes.
